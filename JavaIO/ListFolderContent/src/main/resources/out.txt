@@ -1,0 +1,330 @@
+addins
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+AppCompat
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+AppReadiness
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Boot
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Branding
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+CbsTemp
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+ccmcache
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+ccmsetup
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+CSC
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+debug
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+DesktopTileResources
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+diagnostics
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+DigitalLocker
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+dot3svc
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Downloaded Program Files
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+ELAMBKUP
+ -Type: Directory, R, W, X, Hidden, , Size: 0
+
+Globalization
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Help
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+IME
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+InputMethod
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+LiveKernelReports
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+ModemLogs
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+ms
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Offline Web Pages
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+PCHEALTH
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Performance
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+PLA
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Registration
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+RemotePackages
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+rescache
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Resources
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+SchCache
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+ServiceProfiles
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Setup
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+setuperr.log
+ -Type: File, R, W, X, Not Hidden, , Size: 0
+
+ShellNew
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+SKB
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Speech
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Sun
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+System
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+TAPI
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+tracing
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+twain_32
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Vss
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+Web
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+wlansvc
+ -Type: Directory, R, W, X, Not Hidden, , Size: 0
+
+win.ini
+ -Type: File, R, W, X, Not Hidden, , Size: 167
+
+system.ini
+ -Type: File, R, W, X, Not Hidden, , Size: 219
+
+SMSCFG.INI
+ -Type: File, R, W, X, Not Hidden, , Size: 612
+
+WindowsShell.Manifest
+ -Type: File, R, -, X, Hidden, , Size: 670
+
+SMSAdvancedClient.CONFIGMGR2012AC-R2-KB2910552-X64.mif
+ -Type: File, R, W, X, Not Hidden, , Size: 1797
+
+DtcInstall.log
+ -Type: File, R, W, X, Not Hidden, , Size: 3932
+
+ADFS
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+apppatch
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+assembly
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+Camera
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+en-US
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+FileManager
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+ImmersiveControlPanel
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+L2Schemas
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+Logs
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+MediaViewer
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+Microsoft.NET
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+panther
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+schemas
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+security
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+servicing
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+SoftwareDistribution
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+SystemResources
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+Tasks
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+ToastData
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+vpnplugins
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+WinStore
+ -Type: Directory, R, W, X, Not Hidden, , Size: 4096
+
+vmgcoinstall.log
+ -Type: File, R, W, X, Not Hidden, , Size: 7031
+
+BitLockerDiscoveryVolumeContents
+ -Type: Directory, R, W, X, Hidden, , Size: 8192
+
+winhlp32.exe
+ -Type: File, R, W, X, Not Hidden, , Size: 9728
+
+write.exe
+ -Type: File, R, W, X, Not Hidden, , Size: 11264
+
+setupact.log
+ -Type: File, R, W, X, Not Hidden, , Size: 12672
+
+snp2uvc.src
+ -Type: File, R, W, X, Not Hidden, , Size: 13021
+
+PFRO.log
+ -Type: File, R, W, X, Not Hidden, , Size: 13948
+
+snp2uvc.ini
+ -Type: File, R, W, X, Not Hidden, , Size: 15497
+
+hh.exe
+ -Type: File, R, W, X, Not Hidden, , Size: 17408
+
+Media
+ -Type: Directory, R, W, X, Not Hidden, , Size: 20480
+
+snuvcdsm.exe
+ -Type: File, R, W, X, Not Hidden, , Size: 35656
+
+Starter.xml
+ -Type: File, R, W, X, Not Hidden, , Size: 35891
+
+Enterprise.xml
+ -Type: File, R, W, X, Not Hidden, , Size: 36235
+
+Cursors
+ -Type: Directory, R, W, X, Not Hidden, , Size: 40960
+
+mib.bin
+ -Type: File, R, W, X, Not Hidden, , Size: 43131
+
+PolicyDefinitions
+ -Type: Directory, R, W, X, Not Hidden, , Size: 49152
+
+Temp
+ -Type: Directory, R, W, X, Not Hidden, , Size: 49152
+
+twain_32.dll
+ -Type: File, R, W, X, Not Hidden, , Size: 54272
+
+bfsvc.exe
+ -Type: File, R, W, X, Not Hidden, , Size: 56832
+
+Installer
+ -Type: Directory, R, W, X, Hidden, , Size: 65536
+
+bootstat.dat
+ -Type: File, R, W, X, Not Hidden, , Size: 67584
+
+splwow64.exe
+ -Type: File, R, W, X, Not Hidden, , Size: 128512
+
+Fonts
+ -Type: Directory, R, W, X, Not Hidden, , Size: 131072
+
+Prefetch
+ -Type: Directory, R, W, X, Not Hidden, , Size: 131072
+
+regedit.exe
+ -Type: File, R, W, X, Not Hidden, , Size: 154624
+
+CCM
+ -Type: Directory, R, W, X, Not Hidden, , Size: 163840
+
+notepad.exe
+ -Type: File, R, W, X, Not Hidden, , Size: 221184
+
+Inf
+ -Type: Directory, R, W, X, Not Hidden, , Size: 262144
+
+WMSysPr9.prx
+ -Type: File, R, W, X, Not Hidden, , Size: 316640
+
+SysWOW64
+ -Type: Directory, R, W, X, Not Hidden, , Size: 786432
+
+HelpPane.exe
+ -Type: File, R, W, X, Not Hidden, , Size: 1001472
+
+System32
+ -Type: Directory, R, W, X, Not Hidden, , Size: 1048576
+
+WindowsUpdate.log
+ -Type: File, R, W, X, Not Hidden, , Size: 1448095
+
+sttray64.exe
+ -Type: File, R, W, X, Not Hidden, , Size: 1664000
+
+explorer.exe
+ -Type: File, R, W, X, Not Hidden, , Size: 2501368
+
+BGInfo.bmp
+ -Type: File, R, W, X, Not Hidden, , Size: 4196406
+
+WinSxS
+ -Type: Directory, R, W, X, Not Hidden, , Size: 15204352
+

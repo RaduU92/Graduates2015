@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CountChar/CountChar.iml" filepath="$PROJECT_DIR$/CountChar/CountChar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FileListContent/FileListContent.iml" filepath="$PROJECT_DIR$/FileListContent/FileListContent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JavaIO.iml" filepath="$PROJECT_DIR$/JavaIO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ListFolderContent/ListFolderContent.iml" filepath="$PROJECT_DIR$/ListFolderContent/ListFolderContent.iml" />
+    </modules>
+  </component>
+</project>
