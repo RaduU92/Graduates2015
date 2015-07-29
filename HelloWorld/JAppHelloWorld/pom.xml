@@ -1,0 +1,12 @@
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>root</groupId>
+   <version>1.0</version>
+   <artifactId>HelloWorldJar</artifactId>
+   <packaging>jar</packaging>
+   <name>Hello World Jar</name>
+
+   <build>
+
+   </build>
+</project>
