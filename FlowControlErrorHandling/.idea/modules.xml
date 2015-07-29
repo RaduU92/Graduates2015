@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BackAround/BackAround.iml" filepath="$PROJECT_DIR$/BackAround/BackAround.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Calculator/Calculator.iml" filepath="$PROJECT_DIR$/Calculator/Calculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EveryNth/EveryNth.iml" filepath="$PROJECT_DIR$/EveryNth/EveryNth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FinallyExecution/FinallyExecution.iml" filepath="$PROJECT_DIR$/FinallyExecution/FinallyExecution.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FlowControlErrorHandling.iml" filepath="$PROJECT_DIR$/FlowControlErrorHandling.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Heights/Heights.iml" filepath="$PROJECT_DIR$/Heights/Heights.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MemErrors/MemErrors.iml" filepath="$PROJECT_DIR$/MemErrors/MemErrors.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Monkeys/Monkeys.iml" filepath="$PROJECT_DIR$/Monkeys/Monkeys.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Parrot/Parrot.iml" filepath="$PROJECT_DIR$/Parrot/Parrot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PosNeg/PosNeg.iml" filepath="$PROJECT_DIR$/PosNeg/PosNeg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Scores/Scores.iml" filepath="$PROJECT_DIR$/Scores/Scores.iml" />
+    </modules>
+  </component>
+</project>
