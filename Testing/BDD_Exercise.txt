@@ -1,0 +1,17 @@
+1. The user should be able to add and remove bold, italics and underlines.
+
+When an user try to format the text
+Then that user should be able to add and remove bold, italics and underlines
+
+
+2. When browsing an item, users should be able to see what other users who browsed the item bought.
+
+When an user browse an item
+Then that user should see what other users who browsed the item bought
+
+
+3. Pets shouldn’t be listed for sale until they’re old enough.
+
+Given a pet is below recommended selling age 
+When an user search pets
+Then we shouldn't list that pet for sale
