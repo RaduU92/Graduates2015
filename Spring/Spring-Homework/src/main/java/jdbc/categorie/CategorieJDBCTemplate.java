@@ -1,6 +1,8 @@
 package jdbc.categorie;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -8,8 +10,11 @@ import java.util.List;
 /**
  * Created by rursu on 03.08.2015.
  */
+@Repository
 public class CategorieJDBCTemplate {
+    @Autowired
     private DataSource dataSource;
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public void setDataSource(DataSource dataSource) {

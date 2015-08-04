@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="SpringMvcRest:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="SpringMvcRest.war">
+      <element id="artifact" artifact-name="SpringMvcRest:war exploded" />
+    </root>
+  </artifact>
+</component>

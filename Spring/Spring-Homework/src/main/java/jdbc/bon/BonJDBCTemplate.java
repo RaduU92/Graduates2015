@@ -1,7 +1,9 @@
 package jdbc.bon;
 
 import jdbc.client.Client;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -9,8 +11,11 @@ import java.util.List;
 /**
  * Created by rursu on 8/3/2015.
  */
+@Repository
 public class BonJDBCTemplate implements BonDAO {
+    @Autowired
     private DataSource dataSource;
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public void setDataSource(DataSource dataSource) {
