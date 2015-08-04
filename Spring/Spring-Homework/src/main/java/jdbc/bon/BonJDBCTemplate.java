@@ -46,6 +46,8 @@ public class BonJDBCTemplate implements BonDAO {
     }
 
     public void update(Integer codBon, Client client, String data) {
-
+        String SQL = "UPDATE BON SET DATA = ?, COD_CLIENT = ?  WHERE ID = ?";
+        jdbcTemplate.update(SQL, data, client.getCodClient(), codBon);
+        System.out.println("Updated Record with ID = " + codBon);
     }
 }
