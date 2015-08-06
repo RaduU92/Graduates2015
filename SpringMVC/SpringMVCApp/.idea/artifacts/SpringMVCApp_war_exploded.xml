@@ -1,10 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" build-on-make="true" name="SpringTraining:war exploded">
-    <output-path>$PROJECT_DIR$/target/SpringTraining</output-path>
+  <artifact type="exploded-war" build-on-make="true" name="SpringMVCApp:war exploded">
+    <output-path>$PROJECT_DIR$/target/SpringMVCApp</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="SpringTraining" />
+          <element id="module-output" name="SpringMVCApp" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.1.1.RELEASE" />
@@ -20,9 +20,9 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="D:\rursu\IdeaProjects\Graduates2015\SpringMVC\SpringTraining\target/MANIFEST.MF" />
+        <element id="file-copy" path="D:\rursu\IdeaProjects\Graduates2015\SpringMVC\SpringMVCApp\target/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="SpringTraining/web/Web" />
+      <element id="javaee-facet-resources" facet="SpringMVCApp/web/Web" />
     </root>
   </artifact>
 </component>

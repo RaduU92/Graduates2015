@@ -1,0 +1,1 @@
+console.log("In external file");
