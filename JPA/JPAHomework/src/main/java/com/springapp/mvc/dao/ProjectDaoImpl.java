@@ -2,11 +2,11 @@ package com.springapp.mvc.dao;
 
 import com.springapp.mvc.pojos.Project;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Created by rursu on 8/10/2015.
@@ -17,31 +17,46 @@ public class ProjectDaoImpl implements ProjectDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Override
     public void insert(Project project) {
-        entityManager.persist(project);
-        entityManager.flush();
+        sessionFactory.getCurrentSession().saveOrUpdate(project);
     }
 
     @Override
-    public void select(int projectId) {
-        Project project = entityManager.find(Project.class, projectId);
+    public Project select(int projectId) {
+        Project project = new Project();
+        List<Project> projects = sessionFactory.getCurrentSession().createCriteria(Project.class).add(Restrictions.eq("id", projectId)).list();
+        if (projects.size() == 1) {
+            project.setId(projects.get(0).getId());
+            project.setName(projects.get(0).getName());
+            project.setDescription(projects.get(0).getDescription());
+            project.setProjectManager(projects.get(0).getProjectManager());
+        } else {
+            if (projects.size() < 1) {
+                project.setId(projectId);
+                project.setName("NU EXISTA!!!!");
+                project.setDescription("-");
+                project.setProjectManager("-");
+            } else {
+                project.setId(projectId);
+                project.setName("EXISTA MAI MULTE DEPARTAMENTE CU ACEST ID!!!");
+                project.setDescription("-");
+                project.setProjectManager("-");
+            }
+        }
+        return project;
     }
 
     @Override
     public void updateProject(Project project) {
-        Project mergedProject = entityManager.merge(project);
-        mergedProject.setName("updatedName");
-        mergedProject.setDescription("updatedDescription");
-        mergedProject.setProjectManager("newManager");
+        sessionFactory.getCurrentSession().update(project);
     }
 
     @Override
     public void deleteProject(int projectId) {
-        Project project = entityManager.find(Project.class, projectId);
-        entityManager.remove(project);
+        Project project = (Project) sessionFactory.getCurrentSession().createCriteria(Project.class).add(Restrictions.eq("id", projectId)).uniqueResult();
+        if (project != null) {
+            sessionFactory.getCurrentSession().delete(project);
+        }
     }
 }

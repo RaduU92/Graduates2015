@@ -2,10 +2,11 @@ package com.springapp.mvc.dao;
 
 import com.springapp.mvc.pojos.Department;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by rursu on 8/10/2015.
@@ -16,30 +17,42 @@ public class DepartmentDaoImpl implements DepartmentDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
-
     @Override
     public void insert(Department department) {
         sessionFactory.getCurrentSession().saveOrUpdate(department);
     }
 
     @Override
-    public void select(int departmentId) {
-        //sessionFactory.getCurrentSession().load(Department.class, departmentId);
-        Department department = entityManager.find(Department.class, departmentId);
+    public Department select(int departmentId) {
+        Department department = new Department("");
+        List<Department> departments = sessionFactory.getCurrentSession().createCriteria(Department.class).add(Restrictions.eq("id", departmentId)).list();
+        if (departments.size() == 1) {
+            department.setId(departments.get(0).getId());
+            department.setName(departments.get(0).getName());
+        } else {
+            if (departments.size() < 1) {
+                department.setId(departmentId);
+                department.setName("NU EXISTA!!!!");
+            } else {
+                department.setId(departmentId);
+                department.setName("EXISTA MAI MULTE DEPARTAMENTE CU ACEST ID!!!");
+            }
+        }
+        return department;
     }
 
     @Override
     public void updateDepartment(Department department) {
-        Department mergedDepartment = entityManager.merge(department);
-        mergedDepartment.setName("updatedDepartment");
+        sessionFactory.getCurrentSession().update(department);
     }
 
     @Override
     public void deleteDepartment(int departmentId) {
-        Department department = entityManager.find(Department.class, departmentId);
-        entityManager.remove(department);
+        Department department = (Department) sessionFactory.getCurrentSession().createCriteria(Department.class).add(Restrictions.eq("id", departmentId)).uniqueResult();
+        if (department != null) {
+            sessionFactory.getCurrentSession().delete(department);
+            /*
+            * Trebuie setata nula legatura catre employee*/
+        }
     }
 }

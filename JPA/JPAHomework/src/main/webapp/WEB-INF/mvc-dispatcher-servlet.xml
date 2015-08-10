@@ -14,7 +14,7 @@
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/jpahomework"/>
+        <property name="url" value="jdbc:mysql://localhost:3310/jpahomework"/>
         <property name="username" value="root"/>
         <property name="password" value="admin"/>
     </bean>
@@ -36,5 +36,17 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="departmentDao" class="com.springapp.mvc.dao.DepartmentDaoImpl"/>
+
+    <bean id="departmentService" class="com.springapp.mvc.service.DepartmentServiceImpl"/>
+
+    <bean id="employeeDao" class="com.springapp.mvc.dao.EmployeeDaoImpl"/>
+
+    <bean id="employeeService" class="com.springapp.mvc.service.EmployeeServiceImpl"/>
+
+    <bean id="projectDao" class="com.springapp.mvc.dao.ProjectDaoImpl"/>
+
+    <bean id="projectService" class="com.springapp.mvc.service.ProjectServiceImpl"/>
 
 </beans>

@@ -7,7 +7,7 @@ import com.springapp.mvc.pojos.Department;
  */
 public interface DepartmentDao {
     void insert(Department department);
-    void select(int departmentId);
+    Department select(int departmentId);
     void updateDepartment(Department department);
     void deleteDepartment(int departmentId);
 }

@@ -23,6 +23,21 @@ public class Employee {
     private String zipCode;
     private Date birthday;
 
+    public Employee(String name, int salary, Department deptId, String street, String city, String state, String zipCode, Date birthday) {
+        this.name = name;
+        this.salary = salary;
+        this.deptId = deptId;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.birthday = birthday;
+    }
+
+    public Employee() {
+
+    }
+
     public int getId() {
         return id;
     }

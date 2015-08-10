@@ -2,11 +2,11 @@ package com.springapp.mvc.dao;
 
 import com.springapp.mvc.pojos.Employee;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Created by rursu on 8/10/2015.
@@ -17,29 +17,47 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Override
     public void insert(Employee employee) {
-        entityManager.persist(employee);
-        entityManager.flush();
+        sessionFactory.getCurrentSession().saveOrUpdate(employee);
     }
 
     @Override
-    public void select(int employeeId) {
-        Employee employee = entityManager.find(Employee.class, employeeId);
+    public Employee select(int employeeId) {
+        Employee employee = new Employee();
+        List<Employee> employees = sessionFactory.getCurrentSession().createCriteria(Employee.class).add(Restrictions.eq("id", employeeId)).list();
+        if (employees.size() == 1) {
+            employee.setId(employees.get(0).getId());
+            employee.setName(employees.get(0).getName());
+            employee.setBirthday(employees.get(0).getBirthday());
+            employee.setCity(employees.get(0).getCity());
+            employee.setDeptId(employees.get(0).getDeptId());
+            employee.setSalary(employees.get(0).getSalary());
+            employee.setState(employees.get(0).getState());
+            employee.setStreet(employees.get(0).getStreet());
+            employee.setZipCode(employees.get(0).getZipCode());
+        } else {
+            if (employees.size() < 1) {
+                employee.setId(employeeId);
+                employee.setName("NU EXISTA!!!!");
+            } else {
+                employee.setId(employeeId);
+                employee.setName("EXISTA MAI MULTI ANGAJATI CU ACEST ID!!!");
+            }
+        }
+        return employee;
     }
 
     @Override
     public void updateEmployee(Employee employee) {
-        Employee mergedEmployee = entityManager.merge(employee);
-        mergedEmployee.setName("testName");
+        sessionFactory.getCurrentSession().update(employee);
     }
 
     @Override
     public void deleteEmployee(int employeeId) {
-        Employee employee = entityManager.find(Employee.class, employeeId);
-        entityManager.remove(employee);
+        Employee employee = (Employee) sessionFactory.getCurrentSession().createCriteria(Employee.class).add(Restrictions.eq("id", employeeId)).uniqueResult();
+        if (employee != null) {
+            sessionFactory.getCurrentSession().delete(employee);
+        }
     }
 }

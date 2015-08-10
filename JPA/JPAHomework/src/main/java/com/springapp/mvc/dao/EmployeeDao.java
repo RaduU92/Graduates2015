@@ -8,7 +8,7 @@ import com.springapp.mvc.pojos.Employee;
  */
 public interface EmployeeDao {
     void insert(Employee employee);
-    void select(int employeeId);
+    Employee select(int employeeId);
     void updateEmployee(Employee employee);
     void deleteEmployee(int employeeId);
 }

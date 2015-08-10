@@ -21,6 +21,10 @@ public class Project {
         this.description = description;
     }
 
+    public Project() {
+
+    }
+
     public int getId() {
         return id;
     }
