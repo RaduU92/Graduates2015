@@ -1,16 +1,30 @@
 .body{
-	background-color: #dddddd;
+	background-color: #F0F0F0;
 	padding: 10px;
 }
 
 .paragraph1{
-	color: #0000ff;
+	color: #0066FF;
 	padding: 10px;
 	font-size: 20px;
 }
 
+.button{
+	padding: 5px 7px 5px 7px;
+	background-color: #0099FF;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+	font-size: 15px;
+	color: #F0F0F0;
+}
+
+.button:hover{
+	background-color: #0066FF;
+	color: #DDDDDD;
+}
+
 input{
 	border-radius: 5px;
-	padding: 2px 5px 2px 5px;
+	padding: 5px 7px 5px 7px;
 	border: 1px solid;
 }
