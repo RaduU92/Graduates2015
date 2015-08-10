@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="JPAHomework:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="JPAHomework.war">
+      <element id="artifact" artifact-name="JPAHomework:war exploded" />
+    </root>
+  </artifact>
+</component>
