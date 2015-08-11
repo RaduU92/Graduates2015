@@ -31,6 +31,7 @@ public class ProjectDaoImpl implements ProjectDao {
             project.setName(projects.get(0).getName());
             project.setDescription(projects.get(0).getDescription());
             project.setProjectManager(projects.get(0).getProjectManager());
+            project.setEmployees(projects.get(0).getEmployees());
         } else {
             if (projects.size() < 1) {
                 project.setId(projectId);

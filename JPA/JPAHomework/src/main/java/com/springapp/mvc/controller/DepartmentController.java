@@ -2,6 +2,7 @@ package com.springapp.mvc.controller;
 
 import com.springapp.mvc.pojos.Department;
 import com.springapp.mvc.service.DepartmentService;
+import com.springapp.mvc.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +18,9 @@ public class DepartmentController {
 
     @Autowired
     private DepartmentService departmentService;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
     public String insert() {
@@ -43,6 +47,11 @@ public class DepartmentController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(ModelMap model) {
+//        List<Employee> employees =  employeeService.selectEmployeesFromDepartment(1);
+//        for(Employee employee : employees) {
+//            employeeService.reseteEmployeeDepartment(employee);
+//        }
+
         departmentService.deleteDepartment(1);
         String message = "Departamentul cu id-ul 1 a fost sters!";
         model.addAttribute("message", message);

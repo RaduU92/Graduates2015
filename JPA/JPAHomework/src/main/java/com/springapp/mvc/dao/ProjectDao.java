@@ -7,7 +7,10 @@ import com.springapp.mvc.pojos.Project;
  */
 public interface ProjectDao {
     void insert(Project project);
+
     Project select(int projectId);
+
     void updateProject(Project project);
+
     void deleteProject(int projectId);
 }

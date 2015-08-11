@@ -1,7 +1,7 @@
 package com.springapp.mvc.dao;
 
+import com.springapp.mvc.pojos.Department;
 import com.springapp.mvc.pojos.Employee;
-import com.springapp.mvc.service.EmployeeService;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             employee.setState(employees.get(0).getState());
             employee.setStreet(employees.get(0).getStreet());
             employee.setZipCode(employees.get(0).getZipCode());
+            employee.setProjects(employees.get(0).getProjects());
         } else {
             if (employees.size() < 1) {
                 employee.setId(employeeId);
@@ -50,6 +51,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
             }
         }
         return employee;
+    }
+
+    @Override
+    public List<Employee> selectEmployeesFromDepartment(int departmentId) {
+        List<Employee> employees = sessionFactory.getCurrentSession().createCriteria(Employee.class).add(Restrictions.eq("dept_id", departmentId)).list();
+        return employees;
     }
 
     @Override

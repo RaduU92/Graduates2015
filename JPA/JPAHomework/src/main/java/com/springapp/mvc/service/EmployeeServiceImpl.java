@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by RaDU on 11.08.2015.
  */
@@ -25,6 +27,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public Employee select(int employeeId) {
         return employeeDao.select(employeeId);
+    }
+
+    @Override
+    @Transactional
+    public List<Employee> selectEmployeesFromDepartment(int departmentId) {
+        return employeeDao.selectEmployeesFromDepartment(departmentId);
     }
 
     @Override

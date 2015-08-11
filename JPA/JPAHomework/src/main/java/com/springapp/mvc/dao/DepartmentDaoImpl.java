@@ -1,6 +1,8 @@
 package com.springapp.mvc.dao;
 
 import com.springapp.mvc.pojos.Department;
+import com.springapp.mvc.pojos.Employee;
+import com.springapp.mvc.service.EmployeeService;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     @Override
     public void insert(Department department) {
@@ -51,9 +56,13 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public void deleteDepartment(int departmentId) {
         Department department = (Department) sessionFactory.getCurrentSession().createCriteria(Department.class).add(Restrictions.eq("id", departmentId)).uniqueResult();
         if (department != null) {
+            /*Trebuie setata nula legatura catre employee*/
+//            List<Employee> employees = employeeService.selectEmployeesFromDepartment(departmentId);
+//            for (Employee employee : employees) {
+//                employee.setDeptId(null); //iau un departament care nu exista
+//                employeeService.updateEmployee(employee);
+//            }
             sessionFactory.getCurrentSession().delete(department);
-            /*
-            * Trebuie setata nula legatura catre employee*/
-        }
+         }
     }
 }

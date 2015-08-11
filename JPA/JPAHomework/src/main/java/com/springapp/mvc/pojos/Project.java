@@ -1,6 +1,7 @@
 package com.springapp.mvc.pojos;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by rursu on 8/10/2015.
@@ -14,11 +15,14 @@ public class Project {
     @Column(name = "project_manager")
     private String projectManager;
     private String description;
+    @ManyToMany(mappedBy = "projects", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    private List<Employee> employees;
 
-    public Project(String name, String projectManager, String description) {
+    public Project(String name, String projectManager, String description, List<Employee> employees) {
         this.name = name;
         this.projectManager = projectManager;
         this.description = description;
+        this.employees = employees;
     }
 
     public Project() {
@@ -55,5 +59,13 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }

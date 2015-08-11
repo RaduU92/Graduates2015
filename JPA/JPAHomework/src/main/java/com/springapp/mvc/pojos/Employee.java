@@ -1,11 +1,12 @@
 package com.springapp.mvc.pojos;
 
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
-//import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by rursu on 8/10/2015.
@@ -17,8 +18,8 @@ public class Employee {
     private int id;
     private String name;
     private int salary;
-    @ManyToOne
-    @JoinColumn(name = "dept_id")
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Department.class)
+    @JoinColumn(name = "dept_id", nullable = false)
     private Department deptId;
     private String street;
     private String city;
@@ -26,10 +27,13 @@ public class Employee {
     @Column(name = "zip_code")
     private String zipCode;
     @Column(name = "birthday")
-    @Type(type="timestamp")
-    private Timestamp birthday;
+    @Type(type = "date")
+    private Date birthday;
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Project.class, cascade = CascadeType.ALL)
+    @JoinTable(name = "emp_prj", joinColumns = {@JoinColumn(name = "emp_id")}, inverseJoinColumns = {@JoinColumn(name = "prj_id")})
+    private List<Project> projects;
 
-    public Employee(String name, int salary, Department deptId, String street, String city, String state, String zipCode, Timestamp birthday) {
+    public Employee(String name, int salary, Department deptId, String street, String city, String state, String zipCode, Date birthday, List<Project> projects) {
         this.name = name;
         this.salary = salary;
         this.deptId = deptId;
@@ -38,6 +42,7 @@ public class Employee {
         this.state = state;
         this.zipCode = zipCode;
         this.birthday = birthday;
+        this.projects = projects;
     }
 
     public Employee() {
@@ -108,11 +113,19 @@ public class Employee {
         this.zipCode = zipCode;
     }
 
-    public Timestamp getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Timestamp birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 }

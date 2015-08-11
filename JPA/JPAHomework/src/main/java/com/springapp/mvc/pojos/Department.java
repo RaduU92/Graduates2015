@@ -1,6 +1,12 @@
 package com.springapp.mvc.pojos;
 
-import javax.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * Created by rursu on 8/10/2015.
@@ -15,6 +21,7 @@ public class Department {
     public Department(String name) {
         this.name = name;
     }
+
     public Department() {
 
     }
