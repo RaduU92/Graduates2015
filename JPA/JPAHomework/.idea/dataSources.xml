@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="878774438">
-    <data-source source="LOCAL" name="MySQL - jpahomework@localhost" uuid="850e45fb-4c50-4531-8961-9159e43eaa8d">
+  <component name="DataSourceManagerImpl" format="xml" hash="441427676">
+    <data-source source="LOCAL" name="MySQL - jpahomework@localhost" uuid="f4248b01-4e27-448e-8652-0146890f8ac1">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3310/jpahomework</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/jpahomework</jdbc-url>
       <driver-properties>
         <property name="zeroDateTimeBehavior" value="convertToNull" />
         <property name="tinyInt1isBit" value="false" />

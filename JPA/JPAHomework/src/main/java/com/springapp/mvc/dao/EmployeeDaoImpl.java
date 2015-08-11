@@ -1,10 +1,12 @@
 package com.springapp.mvc.dao;
 
 import com.springapp.mvc.pojos.Employee;
+import com.springapp.mvc.service.EmployeeService;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,8 +20,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
     private SessionFactory sessionFactory;
 
     @Override
+    @Transactional
     public void insert(Employee employee) {
         sessionFactory.getCurrentSession().saveOrUpdate(employee);
+        sessionFactory.getCurrentSession().flush();
     }
 
     @Override

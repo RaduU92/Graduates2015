@@ -1,7 +1,11 @@
 package com.springapp.mvc.pojos;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
-import java.util.Date;
+//import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by rursu on 8/10/2015.
@@ -21,9 +25,11 @@ public class Employee {
     private String state;
     @Column(name = "zip_code")
     private String zipCode;
-    private Date birthday;
+    @Column(name = "birthday")
+    @Type(type="timestamp")
+    private Timestamp birthday;
 
-    public Employee(String name, int salary, Department deptId, String street, String city, String state, String zipCode, Date birthday) {
+    public Employee(String name, int salary, Department deptId, String street, String city, String state, String zipCode, Timestamp birthday) {
         this.name = name;
         this.salary = salary;
         this.deptId = deptId;
@@ -102,11 +108,11 @@ public class Employee {
         this.zipCode = zipCode;
     }
 
-    public Date getBirthday() {
+    public Timestamp getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(Timestamp birthday) {
         this.birthday = birthday;
     }
 }

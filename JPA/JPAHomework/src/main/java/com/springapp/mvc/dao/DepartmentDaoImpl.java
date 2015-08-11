@@ -20,6 +20,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     @Override
     public void insert(Department department) {
         sessionFactory.getCurrentSession().saveOrUpdate(department);
+        sessionFactory.getCurrentSession().flush();
     }
 
     @Override
