@@ -95,11 +95,40 @@ public class Main {
         t.displayNodesWithChildrens(t.getRoot());
         System.out.println("End of display.");
 
-
 //        System.out.println("Answer: " + t.isUpper(t.getRoot().getChildren().get(0).getChildren().get(0).getChildren().get(0), t.getRoot().getChildren().get(0).getChildren().get(1)));
 
         System.out.println("Display:");
         t.displayNodesWithChildrens(t.getRoot());
         System.out.println("End of display.");
+
+        t.changeParentOfNode(t.getNodeByKey(6, t.getRoot(), new Node<Integer>()), t.getNodeByKey(2, t.getRoot(), new Node<Integer>()));
+//        t.changeParentOfNode(t.getNodeByKey(6, t.getRoot(), new Node<Integer>()), null);
+//        t.changeParentOfNode(null, t.getNodeByKey(6, t.getRoot(), new Node<Integer>()));
+
+        System.out.println("Display:");
+        t.displayNodesWithChildrens(t.getRoot());
+        System.out.println("End of display.");
+
+        t.changeParentOfNode(t.getNodeByKey(2, t.getRoot(), new Node<Integer>()), t.getNodeByKey(3, t.getRoot(), new Node<Integer>()));
+
+        System.out.println("Display:");
+        t.displayNodesWithChildrens(t.getRoot());
+        System.out.println("End of display.");
+
+        System.out.println(":::" + t.getNodeByKey(3, t.getRoot(), new Node<Integer>()).getParent().getData());
+        t.displayNodesWithChildrens(t.getRoot());
+
+        //t.changeParentOfNode(t.getNodeByKey(0, t.getRoot(), new Node<Integer>()), t.getNodeByKey(2, t.getRoot(), new Node<Integer>()));
+
+        System.out.println("Display:");
+        t.displayNodesWithChildrens(t.getRoot());
+        System.out.println("End of display.");
+
+//        System.out.println("\n\n------------------->" + t.isUpper(t.getNodeByKey(4, t.getRoot(), new Node<Integer>()), t.getNodeByKey(0, t.getRoot(), new Node<Integer>())));
+//        System.out.println("\n\n------------------->" + t.isUpper(t.getRoot().getChildren().get(0), t.getRoot()));
+    t.changeParentOfNode2(t.getNodeByKey(2, t.getRoot(), new Node<Integer>()), t.getNodeByKey(0, t.getRoot(), new Node<Integer>()));
+            System.out.println("Display:");
+            t.displayNodesWithChildrens(t.getRoot());
+            System.out.println("End of display.");
     }
 }

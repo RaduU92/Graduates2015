@@ -119,11 +119,18 @@ public class Tree<T> {
     // Verifica daca nodul parent se afla pe un nivel superior nodului child
     public boolean isUpper(Node<T> child, Node<T> parent) {
         boolean ok = false;
-        Node<T> node = child;
-        while (node.getParent() != null) {
-            node = node.getParent();
-            if (node == parent) {
-                ok = true;
+        if (child != null) {
+            Node<T> node = child;
+            while (node.getParent() != null) {
+                node = node.getParent();
+                System.out.println("nod: " + node.getData() + " ---- parinte: " + parent.getData());
+                if (node.getParent() != null) {
+                    System.out.println(" NodeParent: " + node.getParent().getData());
+                }
+                if (node == parent) {
+                    ok = true;
+                    System.out.println("este!");
+                }
             }
         }
         return ok;
@@ -137,6 +144,37 @@ public class Tree<T> {
     }
 
     public void changeParentOfNode(Node<T> node, Node<T> newParent) {
+        // Cazul in care newParent nu este copilul nodului node
+        if ((node != newParent) && (newParent != null) && (node != null)) {
+            if (!isUpper(newParent, node)) {
+                Node<T> aux = node;
+                node.getParent().getChildren().remove(node);
+                aux.setParent(newParent);
+                newParent.getChildren().add(aux);
 
+            } else {
+                Node<T> aux = newParent;
+                newParent.getParent().getChildren().remove(newParent);
+                System.out.println("--->" + aux.getData());
+                node.getParent().getChildren().add(aux);
+                Node<T> auxChildren = node;
+                aux.getParent().getChildren().remove(node);
+                aux.getChildren().add(auxChildren);
+            }
+        }
+    }
+
+    public void changeParentOfNode2(Node<T> node, Node<T> newParent) {
+        // Cazul in care newParent nu este copilul nodului node
+        if ((node != newParent) && (newParent != null) && (node != null)) {
+
+            Node<T> aux = newParent;
+            newParent.getParent().getChildren().remove(newParent);
+            System.out.println("--->" + aux.getData());
+            node.getParent().getChildren().add(aux);
+            Node<T> auxChildren = node;
+            aux.getParent().getChildren().remove(node);
+            aux.getChildren().add(auxChildren);
+        }
     }
 }
