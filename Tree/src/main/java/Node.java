@@ -41,8 +41,5 @@ public class Node<T> {
     public void setChildren(List<Node<T>> children) {
         this.children = children;
     }
-
-    public void addChildren(Node<T> child) {
-        this.children.add(child);
-    }
+    
 }

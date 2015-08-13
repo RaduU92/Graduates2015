@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by rursu on 8/12/2015.
@@ -23,26 +22,53 @@ public class Tree<T> {
 
     // afisarea continutului si a copiilor nodului "node"
     public void display(Node<T> node) {
-        System.out.println(node.getData());
-        if (node.getChildren() != null) {
-            for (Node<T> nod : node.getChildren()) {
-                display(nod);
+        if (node != null) {
+            System.out.println(node.getData());
+            if (node.getChildren() != null) {
+                for (Node<T> nod : node.getChildren()) {
+                    display(nod);
+                }
             }
+        } else {
+            System.out.println("Nothing to display!");
+        }
+    }
+
+    // afisarea continutului si a copiilor nodului "node" impreuna cu copii fiecarui nod
+    public void displayNodesWithChildrens(Node<T> node) {
+        if (node != null) {
+            System.out.print(node.getData() + " :");
+            for (Node<T> x : node.getChildren()) {
+                System.out.print(" " + x.getData());
+            }
+            System.out.println("\n");
+            if (node.getChildren() != null) {
+                for (Node<T> nod : node.getChildren()) {
+                    displayNodesWithChildrens(nod);
+                }
+            }
+        } else {
+            System.out.println("Nothing to display!");
         }
     }
 
     // returneaza nodul cu continutul nodeData, pornind cautarea de la nodul head
-    public Node<T> getNodeByKey(T nodeData, Node<T> head) {
-        Node<T> node = new Node<T>();
-        if (head.getData().equals(nodeData)) {
-            node = head;
-        }// else {
-        if (head.getChildren() != null) {
-            for (Node<T> nod : head.getChildren()) {
-                getNodeByKey(nodeData, nod);
+    public Node<T> getNodeByKey(T nodeData, Node<T> head, Node<T> node) {
+//        System.out.println(head.getData());
+//        if (head.getData() == nodeData) {
+        if (head != null) {
+            if (head.getData().equals(nodeData)) {
+                node = head;
+//            System.out.println(" gasit!!!");
+//            System.out.println("Parinte: " + node.getParent().getData());
+            } else {
+                if (head.getChildren() != null) {
+                    for (Node<T> nod : head.getChildren()) {
+                        node = getNodeByKey(nodeData, nod, node);
+                    }
+                }
             }
         }
-        //}
         return node;
     }
 
@@ -53,29 +79,64 @@ public class Tree<T> {
         child.setData(childData);
         child.setParent(parent);
         if (parent == null) {
-            Node<T> oldRoot = new Node<T>(this.root.getData(),this.root.getParent(),this.root.getChildren());
-            child.addChildren(oldRoot);
+            Node<T> oldRoot = new Node<T>(this.root.getData(), this.root.getParent(), this.root.getChildren());
+            child.getChildren().add(oldRoot);
             oldRoot.setParent(child);
             setRoot(child);
         } else {
-            parent.addChildren(child);
+            parent.getChildren().add(child);
         }
     }
 
     // adauga un nod cu valoarea childData nodului parinte  ce contine informatia "parentData"
     public void addNodesToParentByKey(T childData, T parentData) {
-        Node<T> parent = getNodeByKey(parentData, this.root);
+        Node<T> parent = getNodeByKey(parentData, this.root, new Node<T>());
         Node<T> child = new Node<T>();
         child.setChildren(new ArrayList<Node<T>>());
         child.setData(childData);
         child.setParent(parent);
         if (parent == null) {
-            Node<T> oldRoot = new Node<T>(this.root.getData(),this.root.getParent(),this.root.getChildren());
-            child.addChildren(oldRoot);
+            Node<T> oldRoot = new Node<T>(this.root.getData(), this.root.getParent(), this.root.getChildren());
+            child.getChildren().add(oldRoot);
             oldRoot.setParent(child);
             setRoot(child);
         } else {
-            parent.addChildren(child);
+            parent.getChildren().add(child);
         }
+    }
+
+    // Sterge un nod specificat, cu toti copiii acestuia
+    public void removeNode(Node<T> node) {
+        if (node.equals(this.getRoot())) {
+            setRoot(null);
+        } else {
+            Node<T> parrent = node.getParent();
+            parrent.getChildren().remove(node);
+            node = null;
+        }
+    }
+
+    // Verifica daca nodul parent se afla pe un nivel superior nodului child
+    public boolean isUpper(Node<T> child, Node<T> parent) {
+        boolean ok = false;
+        Node<T> node = child;
+        while (node.getParent() != null) {
+            node = node.getParent();
+            if (node == parent) {
+                ok = true;
+            }
+        }
+        return ok;
+    }
+
+    // Modifica valoarea din nodul "node" la valoarea "info"
+    public void updateNodeInfo(Node<T> node, T info) {
+        if (node != null) {
+            node.setData(info);
+        }
+    }
+
+    public void changeParentOfNode(Node<T> node, Node<T> newParent) {
+
     }
 }
