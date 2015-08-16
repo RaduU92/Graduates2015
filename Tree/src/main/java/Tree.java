@@ -158,7 +158,8 @@ public class Tree<T> {
                 System.out.println("--->" + aux.getData());
                 node.getParent().getChildren().add(aux);
                 Node<T> auxChildren = node;
-                aux.getParent().getChildren().remove(node);
+//              aux.getParent().getChildren().remove(node);
+                node.getParent().getChildren().remove(node);
                 aux.getChildren().add(auxChildren);
             }
         }
@@ -173,7 +174,8 @@ public class Tree<T> {
             System.out.println("--->" + aux.getData());
             node.getParent().getChildren().add(aux);
             Node<T> auxChildren = node;
-            aux.getParent().getChildren().remove(node);
+//            aux.getParent().getChildren().remove(node);
+            node.getParent().getChildren().remove(node);
             aux.getChildren().add(auxChildren);
         }
     }

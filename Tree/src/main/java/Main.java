@@ -126,9 +126,18 @@ public class Main {
 
 //        System.out.println("\n\n------------------->" + t.isUpper(t.getNodeByKey(4, t.getRoot(), new Node<Integer>()), t.getNodeByKey(0, t.getRoot(), new Node<Integer>())));
 //        System.out.println("\n\n------------------->" + t.isUpper(t.getRoot().getChildren().get(0), t.getRoot()));
-    t.changeParentOfNode2(t.getNodeByKey(2, t.getRoot(), new Node<Integer>()), t.getNodeByKey(0, t.getRoot(), new Node<Integer>()));
-            System.out.println("Display:");
-            t.displayNodesWithChildrens(t.getRoot());
-            System.out.println("End of display.");
+
+        System.out.println("Display:");
+        t.displayNodesWithChildrens(t.getRoot());
+        System.out.println("End of display.");
+
+//        t.changeParentOfNode(t.getNodeByKey(3, t.getRoot(), new Node<Integer>()), t.getNodeByKey(1, t.getRoot(), new Node<Integer>()));
+//        System.out.println("Display:");
+//        t.displayNodesWithChildrens(t.getRoot());
+//        System.out.println("End of display.");
+        t.changeParentOfNode2(t.getNodeByKey(0, t.getRoot(), new Node<Integer>()), t.getNodeByKey(2, t.getRoot(), new Node<Integer>()));
+        System.out.println("Display====:");
+        t.displayNodesWithChildrens(t.getRoot());
+        System.out.println("End of display.");
     }
 }
