@@ -79,11 +79,6 @@ public class Main {
         t.displayNodesWithChildrens(t.getNodeByKey(1, t.getRoot(), new Node<Integer>()));
         System.out.println("End of display.");
 
-//        t.removeNode(t.getRoot());
-//        System.out.println("\nDeleting root...");
-//        System.out.println("Display:");
-//        t.display(t.getRoot());
-//        System.out.println("End of display.");
         t.addNodesToParent(10, null);
 
         System.out.println("Display:");
@@ -96,10 +91,6 @@ public class Main {
         System.out.println("End of display.");
 
 //        System.out.println("Answer: " + t.isUpper(t.getRoot().getChildren().get(0).getChildren().get(0).getChildren().get(0), t.getRoot().getChildren().get(0).getChildren().get(1)));
-
-        System.out.println("Display:");
-        t.displayNodesWithChildrens(t.getRoot());
-        System.out.println("End of display.");
 
         t.changeParentOfNode(t.getNodeByKey(6, t.getRoot(), new Node<Integer>()), t.getNodeByKey(2, t.getRoot(), new Node<Integer>()));
 //        t.changeParentOfNode(t.getNodeByKey(6, t.getRoot(), new Node<Integer>()), null);
@@ -127,17 +118,62 @@ public class Main {
 //        System.out.println("\n\n------------------->" + t.isUpper(t.getNodeByKey(4, t.getRoot(), new Node<Integer>()), t.getNodeByKey(0, t.getRoot(), new Node<Integer>())));
 //        System.out.println("\n\n------------------->" + t.isUpper(t.getRoot().getChildren().get(0), t.getRoot()));
 
-        System.out.println("Display:");
-        t.displayNodesWithChildrens(t.getRoot());
-        System.out.println("End of display.");
-
 //        t.changeParentOfNode(t.getNodeByKey(3, t.getRoot(), new Node<Integer>()), t.getNodeByKey(1, t.getRoot(), new Node<Integer>()));
 //        System.out.println("Display:");
 //        t.displayNodesWithChildrens(t.getRoot());
 //        System.out.println("End of display.");
-        t.changeParentOfNode2(t.getNodeByKey(0, t.getRoot(), new Node<Integer>()), t.getNodeByKey(2, t.getRoot(), new Node<Integer>()));
+//        System.out.println("Is or not? : " + t.isUpper(t.getNodeByKey(2, t.getRoot(), new Node<Integer>()), t.getNodeByKey(0, t.getRoot(), new Node<Integer>())));
+        t.changeParentOfNode(t.getNodeByKey(0, t.getRoot(), new Node<Integer>()), t.getNodeByKey(2, t.getRoot(), new Node<Integer>()));
+
         System.out.println("Display====:");
         t.displayNodesWithChildrens(t.getRoot());
         System.out.println("End of display.");
+
+        System.out.println(t.getRoot().getData()); //100
+        System.out.println(t.getRoot().getChildren().get(0).getData()); //2
+        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(0).getData()); //6
+        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getData()); //0
+        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(0).getData()); //1
+        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(1).getData()); //3
+        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(1).getChildren().get(0).getData()); //4
+        System.out.println("\n\n");
+//            System.out.println(t.getRoot().getParent().getData()); //
+        System.out.println(t.getRoot().getChildren().get(0).getParent().getData()); //100
+        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(0).getParent().getData()); //2
+        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getParent().getData()); //2
+        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(0).getParent().getData()); //0
+        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(1).getParent().getData()); //0
+        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(1).getChildren().get(0).getParent().getData()); //3
+
+        System.out.println("\nAnswer:");
+//        System.out.println(t.isUpper(t.getNodeByKey(4, t.getRoot(), new Node<Integer>()), t.getNodeByKey(100, t.getRoot(), new Node<Integer>())));
+        System.out.println(t.isUpper(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(1).getChildren().get(0), t.getRoot()));
+
+//        System.out.println("blablabla: " + t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(1).getChildren().get(0).getParent().getParent().getParent().getData());
+//        System.out.println("blablabla: " + t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(0).getParent().getParent().getData());
+        System.out.println("blablabla: " + t.getRoot().getChildren().get(0).getChildren().get(1).getParent().getData());
+
+        t.addNodesToParentByKey(8, 1);
+        t.addNodesToParentByKey(9, 8);
+        System.out.println("Display:");
+        t.displayNodesWithChildrens(t.getRoot());
+        System.out.println("End of display.");
+
+        t.changeParentOfNode(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(0), t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(1).getChildren().get(0));
+
+        System.out.println("Display:");
+        t.displayNodesWithChildrens(t.getRoot());
+        System.out.println("End of display.");
+        System.out.println("\nTest:");
+//        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(0).getChildren().get(0).getChildren().get(0).getChildren().get(0).getChildren().get(0).getParent().getParent().getParent().getParent().getParent().getParent().getParent().getData()); // 9
+//        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(0).getChildren().get(0).getChildren().get(0).getChildren().get(0).getParent().getParent().getParent().getParent().getParent().getParent().getData()); // 8
+//        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(0).getChildren().get(0).getChildren().get(0).getParent().getParent().getParent().getParent().getParent().getData()); // 1
+//        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(0).getChildren().get(0).getParent().getParent().getParent().getParent().getData()); // 4
+//        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getChildren().get(0).getParent().getParent().getParent().getData()); // 3
+//        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(1).getParent().getParent().getData()); // 0
+//        System.out.println(t.getRoot().getChildren().get(0).getChildren().get(0).getParent().getParent().getData()); // 6
+//        System.out.println(t.getRoot().getChildren().get(0).getParent().getData()); // 2
+//        System.out.println(t.getRoot().getData()); // 100
+
     }
 }

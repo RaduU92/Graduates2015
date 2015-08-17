@@ -79,10 +79,11 @@ public class Tree<T> {
         child.setData(childData);
         child.setParent(parent);
         if (parent == null) {
-            Node<T> oldRoot = new Node<T>(this.root.getData(), this.root.getParent(), this.root.getChildren());
-            child.getChildren().add(oldRoot);
-            oldRoot.setParent(child);
+            //Node<T> oldRoot = new Node<T>(this.root.getData(), this.root.getParent(), this.root.getChildren());
+            child.getChildren().add(this.getRoot());
+            this.getRoot().setParent(child);
             setRoot(child);
+            //oldRoot.setParent(child);
         } else {
             parent.getChildren().add(child);
         }
@@ -96,10 +97,11 @@ public class Tree<T> {
         child.setData(childData);
         child.setParent(parent);
         if (parent == null) {
-            Node<T> oldRoot = new Node<T>(this.root.getData(), this.root.getParent(), this.root.getChildren());
-            child.getChildren().add(oldRoot);
-            oldRoot.setParent(child);
+            //Node<T> oldRoot = new Node<T>(this.root.getData(), this.root.getParent(), this.root.getChildren());
+            child.getChildren().add(this.getRoot());
+            this.getRoot().setParent(child);
             setRoot(child);
+            //oldRoot.setParent(child);s
         } else {
             parent.getChildren().add(child);
         }
@@ -121,15 +123,15 @@ public class Tree<T> {
         boolean ok = false;
         if (child != null) {
             Node<T> node = child;
-            while (node.getParent() != null) {
+            while ((node.getParent() != null) && (ok == false)) {
                 node = node.getParent();
-                System.out.println("nod: " + node.getData() + " ---- parinte: " + parent.getData());
-                if (node.getParent() != null) {
-                    System.out.println(" NodeParent: " + node.getParent().getData());
-                }
+//                System.out.println("nod: " + node.getData() + " ---- parinte: " + parent.getData());
+//                if (node.getParent() != null) {
+//                    System.out.println(" NodeParent: " + node.getParent().getData());
+//                }
                 if (node == parent) {
                     ok = true;
-                    System.out.println("este!");
+//                    System.out.println("este!");
                 }
             }
         }
@@ -146,37 +148,25 @@ public class Tree<T> {
     public void changeParentOfNode(Node<T> node, Node<T> newParent) {
         // Cazul in care newParent nu este copilul nodului node
         if ((node != newParent) && (newParent != null) && (node != null)) {
-            if (!isUpper(newParent, node)) {
+            System.out.println("node: " + node.getData() + " parent: " + newParent.getData());
+            if (isUpper(newParent, node)) {
+                Node<T> aux = newParent;
+                newParent.getParent().getChildren().remove(newParent);
+                aux.setParent(node.getParent());
+                node.getParent().getChildren().add(aux);
+                Node<T> auxChildren = node;
+                node.getParent().getChildren().remove(node);
+                auxChildren.setParent(aux);
+                aux.getChildren().add(auxChildren);
+                System.out.println("IF!!!!!!!!!==============================");
+
+            } else {
+                System.out.println("ELSE!!!!!!!!!==============================");
                 Node<T> aux = node;
                 node.getParent().getChildren().remove(node);
                 aux.setParent(newParent);
                 newParent.getChildren().add(aux);
-
-            } else {
-                Node<T> aux = newParent;
-                newParent.getParent().getChildren().remove(newParent);
-                System.out.println("--->" + aux.getData());
-                node.getParent().getChildren().add(aux);
-                Node<T> auxChildren = node;
-//              aux.getParent().getChildren().remove(node);
-                node.getParent().getChildren().remove(node);
-                aux.getChildren().add(auxChildren);
             }
-        }
-    }
-
-    public void changeParentOfNode2(Node<T> node, Node<T> newParent) {
-        // Cazul in care newParent nu este copilul nodului node
-        if ((node != newParent) && (newParent != null) && (node != null)) {
-
-            Node<T> aux = newParent;
-            newParent.getParent().getChildren().remove(newParent);
-            System.out.println("--->" + aux.getData());
-            node.getParent().getChildren().add(aux);
-            Node<T> auxChildren = node;
-//            aux.getParent().getChildren().remove(node);
-            node.getParent().getChildren().remove(node);
-            aux.getChildren().add(auxChildren);
         }
     }
 }
