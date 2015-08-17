@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by rursu on 8/12/2015.
@@ -54,13 +55,9 @@ public class Tree<T> {
 
     // returneaza nodul cu continutul nodeData, pornind cautarea de la nodul head
     public Node<T> getNodeByKey(T nodeData, Node<T> head, Node<T> node) {
-//        System.out.println(head.getData());
-//        if (head.getData() == nodeData) {
         if (head != null) {
             if (head.getData().equals(nodeData)) {
                 node = head;
-//            System.out.println(" gasit!!!");
-//            System.out.println("Parinte: " + node.getParent().getData());
             } else {
                 if (head.getChildren() != null) {
                     for (Node<T> nod : head.getChildren()) {
@@ -79,11 +76,9 @@ public class Tree<T> {
         child.setData(childData);
         child.setParent(parent);
         if (parent == null) {
-            //Node<T> oldRoot = new Node<T>(this.root.getData(), this.root.getParent(), this.root.getChildren());
             child.getChildren().add(this.getRoot());
             this.getRoot().setParent(child);
             setRoot(child);
-            //oldRoot.setParent(child);
         } else {
             parent.getChildren().add(child);
         }
@@ -97,11 +92,9 @@ public class Tree<T> {
         child.setData(childData);
         child.setParent(parent);
         if (parent == null) {
-            //Node<T> oldRoot = new Node<T>(this.root.getData(), this.root.getParent(), this.root.getChildren());
             child.getChildren().add(this.getRoot());
             this.getRoot().setParent(child);
             setRoot(child);
-            //oldRoot.setParent(child);s
         } else {
             parent.getChildren().add(child);
         }
@@ -114,7 +107,7 @@ public class Tree<T> {
         } else {
             Node<T> parrent = node.getParent();
             parrent.getChildren().remove(node);
-            node = null;
+//            node = null;
         }
     }
 
@@ -125,13 +118,8 @@ public class Tree<T> {
             Node<T> node = child;
             while ((node.getParent() != null) && (ok == false)) {
                 node = node.getParent();
-//                System.out.println("nod: " + node.getData() + " ---- parinte: " + parent.getData());
-//                if (node.getParent() != null) {
-//                    System.out.println(" NodeParent: " + node.getParent().getData());
-//                }
                 if (node == parent) {
                     ok = true;
-//                    System.out.println("este!");
                 }
             }
         }
@@ -148,7 +136,7 @@ public class Tree<T> {
     public void changeParentOfNode(Node<T> node, Node<T> newParent) {
         // Cazul in care newParent nu este copilul nodului node
         if ((node != newParent) && (newParent != null) && (node != null)) {
-            System.out.println("node: " + node.getData() + " parent: " + newParent.getData());
+//            System.out.println("node: " + node.getData() + " parent: " + newParent.getData());
             if (isUpper(newParent, node)) {
                 Node<T> aux = newParent;
                 newParent.getParent().getChildren().remove(newParent);
@@ -158,15 +146,64 @@ public class Tree<T> {
                 node.getParent().getChildren().remove(node);
                 auxChildren.setParent(aux);
                 aux.getChildren().add(auxChildren);
-                System.out.println("IF!!!!!!!!!==============================");
+//                System.out.println("IF!!!!!!!!!==============================");
 
             } else {
-                System.out.println("ELSE!!!!!!!!!==============================");
+//                System.out.println("ELSE!!!!!!!!!==============================");
                 Node<T> aux = node;
                 node.getParent().getChildren().remove(node);
                 aux.setParent(newParent);
                 newParent.getChildren().add(aux);
             }
         }
+    }
+
+    public ArrayList<Node<T>> configurationTopDown(Node<T> topNode, Node<T> downNode) {
+        ArrayList<Node<T>> nodes = new ArrayList<Node<T>>();
+        if ((topNode != null) && (downNode != null) && (isUpper(downNode, topNode))) {
+            ArrayList<Node<T>> auxNodes = new ArrayList<Node<T>>();
+            boolean ok;
+            Node<T> nodAux = downNode;
+            auxNodes.add(downNode);
+            while ((nodAux.getParent() != topNode.getParent()) && (nodAux.getParent() != null)) {
+                nodAux = nodAux.getParent();
+                auxNodes.add(nodAux);
+            }
+
+            for (int i = auxNodes.size() - 1; i >= 0; i--) {
+                ok = true;
+                for (Node<T> node : nodes) {
+                    if (node.getData() == auxNodes.get(i).getData()) {
+                        ok = false;
+                    }
+                }
+                if (ok) {
+                    nodes.add(auxNodes.get(i));
+                }
+            }
+        }
+        return nodes;
+    }
+
+    public ArrayList<Node<T>> configurationBottomUp(Node<T> bottomNode, Node<T> upNode) {
+        ArrayList<Node<T>> nodes = new ArrayList<Node<T>>();
+        if ((bottomNode != null) && (upNode != null) && (isUpper(bottomNode, upNode))) {
+            boolean ok;
+            nodes.add(bottomNode);
+            Node<T> nodAux = bottomNode;
+            while ((nodAux.getParent() != upNode.getParent()) && (nodAux.getParent() != null)) {
+                ok = true;
+                nodAux = nodAux.getParent();
+                for (Node<T> node : nodes) {
+                    if (node.getData() == nodAux.getData()) {
+                        ok = false;
+                    }
+                }
+                if (ok) {
+                    nodes.add(nodAux);
+                }
+            }
+        }
+        return nodes;
     }
 }
