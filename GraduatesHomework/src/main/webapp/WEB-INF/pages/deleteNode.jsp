@@ -11,6 +11,6 @@
     <title>Delete Node</title>
 </head>
 <body>
-<p>Deleted!</p>
+<p>${message}</p>
 </body>
 </html>

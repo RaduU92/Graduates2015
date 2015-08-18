@@ -11,6 +11,6 @@
     <title>Update Node Info</title>
 </head>
 <body>
-<p>Updated!</p>
+<p>${message}</p>
 </body>
 </html>

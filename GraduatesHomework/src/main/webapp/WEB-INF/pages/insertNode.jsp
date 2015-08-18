@@ -11,6 +11,6 @@
     <title>Insert Node</title>
 </head>
 <body>
-<p>Inserted!</p>
+<p>${message}</p>
 </body>
 </html>

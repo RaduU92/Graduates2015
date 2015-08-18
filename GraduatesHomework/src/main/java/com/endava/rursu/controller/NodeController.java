@@ -31,9 +31,11 @@ public class NodeController {
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public String insert(@RequestBody String json) throws IOException {
+    public String insert(ModelMap model, @RequestBody String json) throws IOException {
         Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
         nodeService.insertNode(new Node(objectMapper.writeValueAsString(jsonMap.get("json")), (Integer) jsonMap.get("parentId")));
+        String message = "Inserted node with json: " + objectMapper.writeValueAsString(jsonMap.get("json")) + " and parrent id: " + jsonMap.get("parentId");
+        model.addAttribute("message", message);
         return "insertNode";
     }
 
@@ -46,16 +48,20 @@ public class NodeController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public String update(@RequestBody String json) throws IOException {
+    public String update(ModelMap model, @RequestBody String json) throws IOException {
         Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
         nodeService.updateNodeInfo((Integer) jsonMap.get("id"), objectMapper.writeValueAsString(jsonMap.get("json")));
+        String message = "Updated node with id: " + jsonMap.get("id");
+        model.addAttribute("message", message);
         return "updateNodeInfo";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public String delete(@RequestBody String json) throws IOException {
+    public String delete(ModelMap model, @RequestBody String json) throws IOException {
         Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
         nodeService.deleteNode((Integer) jsonMap.get("id"));
+        String message = "Deleted node with id: " + jsonMap.get("id");
+        model.addAttribute("message", message);
         return "deleteNode";
     }
 }
