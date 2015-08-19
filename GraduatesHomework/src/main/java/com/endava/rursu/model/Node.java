@@ -1,9 +1,7 @@
 package com.endava.rursu.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by rursu on 8/18/2015.
@@ -14,11 +12,15 @@ public class Node {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String json;
-    private int parentId;
+    @ManyToOne(optional = true)
+    private Node parent;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
+    private List<Node> childrens;
 
-    public Node(String json, int parentId) {
+    public Node(String json, Node parent, List<Node> childrens) {
         this.json = json;
-        this.parentId = parentId;
+        this.parent = parent;
+        this.childrens = childrens;
     }
 
     public Node() {
@@ -41,11 +43,19 @@ public class Node {
         this.json = json;
     }
 
-    public int getParentId() {
-        return parentId;
+    public Node getParent() {
+        return parent;
     }
 
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
+    public void setParent(Node parent) {
+        this.parent = parent;
+    }
+
+    public List<Node> getChildrens() {
+        return childrens;
+    }
+
+    public void setChildrens(List<Node> childrens) {
+        this.childrens = childrens;
     }
 }

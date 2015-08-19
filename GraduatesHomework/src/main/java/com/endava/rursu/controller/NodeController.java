@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,16 @@ public class NodeController {
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public String insert(ModelMap model, @RequestBody String json) throws IOException {
         Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
-        nodeService.insertNode(new Node(objectMapper.writeValueAsString(jsonMap.get("json")), (Integer) jsonMap.get("parentId")));
+        Node root = nodeService.getRoot();
+        if (root == null) {
+            nodeService.insertNode(new Node(objectMapper.writeValueAsString(jsonMap.get("json")), null, new ArrayList<Node>()));
+        } else {
+            if (jsonMap.get("parentId") != null) {
+                nodeService.insertNode(new Node(objectMapper.writeValueAsString(jsonMap.get("json")), nodeService.getNode((Integer) jsonMap.get("parentId")), new ArrayList<Node>()));
+            } else {
+                nodeService.insertNode(new Node(objectMapper.writeValueAsString(jsonMap.get("json")), root, new ArrayList<Node>()));
+            }
+        }
         String message = "Inserted node with json: " + objectMapper.writeValueAsString(jsonMap.get("json")) + " and parrent id: " + jsonMap.get("parentId");
         model.addAttribute("message", message);
         return "insertNode";
@@ -43,7 +53,7 @@ public class NodeController {
     @RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
     public String select(ModelMap model, @PathVariable("id") int nodeId) {
         Node node = nodeService.getNode(nodeId);
-        String message = node.getJson();
+        String message = "id: " + node.getId() + " , json: " + node.getJson();
         model.addAttribute("message", message);
         return "showNode";
     }
@@ -71,7 +81,7 @@ public class NodeController {
         List<Node> nodes = nodeService.getChildrensOfNode(nodeId);
         String message = "Copii nodului cu id-ul " + nodeId + " sunt:\n<ul>";
         for (Node n : nodes) {
-            message += "<li>" + n.getJson() + "</li>";
+            message += "<li>id: " + n.getId() + " , json:" + n.getJson() + "</li>";
         }
         message += "</ul>";
         model.addAttribute("message", message);
@@ -80,15 +90,19 @@ public class NodeController {
 
     @RequestMapping(value = "/getParent/{id}", method = RequestMethod.GET)
     public String getParent(ModelMap model, @PathVariable("id") int nodeId) {
-        Node node = nodeService.getParent(nodeId);
-        String message = "Parintele nodului cu id-ul " + nodeId + " este " + node.getJson();
-
+        String message;
+        if (nodeService.getNode(nodeId).getId() == nodeService.getRoot().getId()) {
+            message = "Acesta este nodul radacina si nu are parinte!";
+        } else {
+            Node node = nodeService.getParent(nodeId);
+            message = "Parintele nodului cu id-ul " + nodeId + " are id-ul: " + node.getId() + " si informatia: " + node.getJson();
+        }
         model.addAttribute("message", message);
         return "getParent";
     }
 
     @RequestMapping(value = "/getRoot", method = RequestMethod.GET)
-    public String getParent(ModelMap model) {
+    public String getRoot(ModelMap model) {
         Node root = nodeService.getRoot();
         String message = "Nodul radacina are urmatoarele informatii: id: " + root.getId() + ", json: " + root.getJson();
         model.addAttribute("message", message);

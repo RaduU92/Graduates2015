@@ -17,12 +17,14 @@ public class NodeDaoImpl implements NodeDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    //    Adauga un nod nou
     @Override
     public void insertNode(Node node) {
         sessionFactory.getCurrentSession().saveOrUpdate(node);
         sessionFactory.getCurrentSession().flush();
     }
 
+    //    Returneaza nodul cu id-ul specificat
     @Override
     public Node getNode(int nodeId) {
         Node node = new Node();
@@ -30,21 +32,22 @@ public class NodeDaoImpl implements NodeDao {
         if (nodes.size() == 1) {
             node.setId(nodes.get(0).getId());
             node.setJson(nodes.get(0).getJson());
-            node.setParentId(nodes.get(0).getParentId());
+            node.setParent(nodes.get(0).getParent());
         } else {
             if (nodes.size() < 1) {
                 node.setId(0);
                 node.setJson("Nu exista acest nod!");
-                node.setParentId(0);
+                node.setParent(null);
             } else {
                 node.setId(0);
                 node.setJson("Exista mai multe noduri cu acest ID!");
-                node.setParentId(0);
+                node.setParent(null);
             }
         }
         return node;
     }
 
+    //    Modifica continutul unui nod
     @Override
     public void updateNodeInfo(int nodeId, String json) {
         List<Node> nodes = sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.eq("id", nodeId)).list();
@@ -53,37 +56,38 @@ public class NodeDaoImpl implements NodeDao {
         sessionFactory.getCurrentSession().update(node);
     }
 
+    //    Sterge nodul (in plus, deoarece e pusa constrangerea de ON DELETE CASCADE, se vor sterge si copiii)
     @Override
     public void deleteNode(int nodeId) {
         Node node = (Node) sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.eq("id", nodeId)).uniqueResult();
         if (node != null) {
-//            List<Node> nodes = sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.eq("parentId", nodeId)).list();
-//            for (Node n : nodes) {
-//                deleteNode(n.getId());
-//            }
             sessionFactory.getCurrentSession().delete(node);
         }
     }
 
+    //    Returneaza copiii unui nod
     @Override
     public List<Node> getChildrensOfNode(int nodeId) {
-        List<Node> nodes = sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.eq("parentId", nodeId)).list();
+        Node node = getNode(nodeId);
+        List<Node> nodes = sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.eq("parent", node)).list();
         return nodes;
     }
 
+    //    Returneaza parintele unui nod
     @Override
     public Node getParent(int nodeId) {
         Node parent = new Node();
         Node child = getNode(nodeId);
-        if (child.getParentId() != 0) {
-            parent = getNode(child.getParentId());
+        if (child.getParent().getId() != 0) {
+            parent = child.getParent();
         }
         return parent;
     }
 
+    //    Returneaza nodul radacina
     @Override
     public Node getRoot() {
-        Node root = (Node) sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.eq("parentId", 0)).uniqueResult();
+        Node root = (Node) sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.isNull("parent")).uniqueResult();
         return root;
     }
 }

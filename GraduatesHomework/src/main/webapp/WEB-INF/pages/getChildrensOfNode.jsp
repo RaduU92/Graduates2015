@@ -11,6 +11,6 @@
     <title>Childrens of Node</title>
 </head>
 <body>
-<p>${message}</p>
+${message}
 </body>
 </html>
