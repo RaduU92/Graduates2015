@@ -90,4 +90,22 @@ public class NodeDaoImpl implements NodeDao {
         Node root = (Node) sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.isNull("parent")).uniqueResult();
         return root;
     }
+
+    //    Schimba parintele uni nod
+    @Override
+    public void updateParentOfNode(int nodeId, int parentNodeId) {
+        Node node = (Node) sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.eq("id", nodeId)).uniqueResult();
+        node.setParent(getNode(parentNodeId));
+        sessionFactory.getCurrentSession().update(node);
+    }
+
+    @Override
+    public List<Node> fetchTopDownConfiguration(int topNodeId, int downNodeId) {
+        return null;
+    }
+
+    @Override
+    public List<Node> fetchBottomUpConfiguration(int bottomNodeId, int upNodeId) {
+        return null;
+    }
 }

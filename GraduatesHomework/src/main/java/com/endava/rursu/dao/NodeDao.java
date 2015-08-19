@@ -21,4 +21,10 @@ public interface NodeDao {
     Node getParent(int nodeId);
 
     Node getRoot();
+
+    void updateParentOfNode(int nodeId, int parentNodeId);
+
+    List<Node> fetchTopDownConfiguration(int topNodeId, int downNodeId);
+
+    List<Node> fetchBottomUpConfiguration(int bottomNodeId, int upNodeId);
 }

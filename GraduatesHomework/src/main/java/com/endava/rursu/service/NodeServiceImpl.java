@@ -59,4 +59,21 @@ public class NodeServiceImpl implements NodeService {
         return nodeDao.getRoot();
     }
 
+    @Override
+    @Transactional
+    public void updateParentOfNode(int nodeId, int parentNodeId) {
+        nodeDao.updateParentOfNode(nodeId, parentNodeId);
+    }
+
+    @Override
+    @Transactional
+    public List<Node> fetchTopDownConfiguration(int topNodeId, int downNodeId) {
+        return nodeDao.fetchTopDownConfiguration(topNodeId, downNodeId);
+    }
+
+    @Override
+    @Transactional
+    public List<Node> fetchBottomUpConfiguration(int bottomNodeId, int upNodeId) {
+        return nodeDao.fetchBottomUpConfiguration(bottomNodeId, upNodeId);
+    }
 }
