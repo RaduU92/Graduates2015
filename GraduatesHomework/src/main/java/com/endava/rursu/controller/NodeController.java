@@ -108,4 +108,13 @@ public class NodeController {
         model.addAttribute("message", message);
         return "getRoot";
     }
+
+    @RequestMapping(value = "/updateParent", method = RequestMethod.PUT)
+    public String updateParent(ModelMap model, @RequestBody String json) throws IOException {
+        Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
+        nodeService.updateParentOfNode((Integer) jsonMap.get("id"), (Integer) jsonMap.get("parentId"));
+        String message = "Updated parent of node with id: " + jsonMap.get("id");
+        model.addAttribute("message", message);
+        return "updateNodeInfo";
+    }
 }

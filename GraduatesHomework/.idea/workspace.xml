@@ -79,20 +79,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NodeController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="NodeController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/endava/rursu/controller/NodeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1624" max-vertical-offset="2040">
-              <caret line="96" column="50" selection-start-line="96" selection-start-column="50" selection-end-line="96" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.71153843" vertical-offset="1704" max-vertical-offset="2220">
+              <caret line="114" column="99" selection-start-line="114" selection-start-column="91" selection-end-line="114" selection-end-column="99" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NodeDaoImpl.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NodeDaoImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/endava/rursu/dao/NodeDaoImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5673077" vertical-offset="1624" max-vertical-offset="2340">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1744" max-vertical-offset="2340">
               <caret line="93" column="35" selection-start-line="93" selection-start-column="35" selection-end-line="93" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -127,10 +127,10 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/endava/rursu/model/Node.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/getChildrensOfNode.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/endava/rursu/controller/NodeController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/endava/rursu/dao/NodeDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/endava/rursu/service/NodeServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/endava/rursu/dao/NodeDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/endava/rursu/controller/NodeController.java" />
       </list>
     </option>
   </component>
@@ -778,12 +778,12 @@
       <updated>1439894690741</updated>
       <workItem from="1439894693595" duration="15012000" />
       <workItem from="1439962346761" duration="6515000" />
-      <workItem from="1439971206084" duration="17111000" />
+      <workItem from="1439971206084" duration="17731000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38638000" />
+    <option name="totallyTimeSpent" value="39258000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1153,17 +1153,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/endava/rursu/controller/NodeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1504" max-vertical-offset="2040">
-          <caret line="96" column="50" selection-start-line="96" selection-start-column="50" selection-end-line="96" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/endava/rursu/dao/NodeDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5673077" vertical-offset="1624" max-vertical-offset="2340">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1744" max-vertical-offset="2340">
           <caret line="93" column="35" selection-start-line="93" selection-start-column="35" selection-end-line="93" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1172,6 +1164,14 @@
             <element signature="e#3695#3696#0" expanded="true" />
             <element signature="e#3722#3723#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/endava/rursu/controller/NodeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.71153843" vertical-offset="1704" max-vertical-offset="2220">
+          <caret line="114" column="99" selection-start-line="114" selection-start-column="91" selection-end-line="114" selection-end-column="99" />
+          <folding />
         </state>
       </provider>
     </entry>
