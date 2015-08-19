@@ -98,23 +98,25 @@ public class NodeDaoImpl implements NodeDao {
         if (nodeId != parentNodeId) {
             Node parent = getNode(parentNodeId);
             Node node = getNode(nodeId);
-//            Node node = (Node) sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.eq("id", nodeId)).uniqueResult();
             Node root = getRoot();
             boolean ok = false;
-            Node aux = node;
+            Node aux = parent;
 //            while ((aux != root) && (ok == false) && (aux != parent)) {
             while ((aux.getId() != root.getId()) && (ok == false)) {
                 aux = getParent(aux.getId());
-                if (aux.getId() == parent.getId()) {
+                if (aux.getId() == node.getId()) {
                     ok = true;
                 }
+                System.out.println("id aux : " + aux.getId());
             }
             if (ok) {
-                parent.setParent(getParent(nodeId));
-                sessionFactory.getCurrentSession().update(parent);
+                Node nodeParent = getParent(nodeId);
+                parent.setParent(nodeParent);
+                sessionFactory.getCurrentSession().merge(parent);
+                System.out.println("id parinte: " + getParent(nodeId).getId());
             }
             node.setParent(parent);
-            sessionFactory.getCurrentSession().update(node);
+            sessionFactory.getCurrentSession().merge(node);
         }
     }
 
