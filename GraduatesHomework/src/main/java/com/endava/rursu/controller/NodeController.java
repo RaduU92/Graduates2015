@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -63,5 +64,34 @@ public class NodeController {
         String message = "Deleted node with id: " + jsonMap.get("id");
         model.addAttribute("message", message);
         return "deleteNode";
+    }
+
+    @RequestMapping(value = "/getChildrens/{id}", method = RequestMethod.GET)
+    public String getChildrens(ModelMap model, @PathVariable("id") int nodeId) {
+        List<Node> nodes = nodeService.getChildrensOfNode(nodeId);
+        String message = "Copii nodului cu id-ul " + nodeId + " sunt:\n<ul>";
+        for (Node n : nodes) {
+            message += "<li>" + n.getJson() + "</li>";
+        }
+        message += "</ul>";
+        model.addAttribute("message", message);
+        return "getChildrensOfNode";
+    }
+
+    @RequestMapping(value = "/getParent/{id}", method = RequestMethod.GET)
+    public String getParent(ModelMap model, @PathVariable("id") int nodeId) {
+        Node node = nodeService.getParent(nodeId);
+        String message = "Parintele nodului cu id-ul " + nodeId + " este " + node.getJson();
+
+        model.addAttribute("message", message);
+        return "getParent";
+    }
+
+    @RequestMapping(value = "/getRoot", method = RequestMethod.GET)
+    public String getParent(ModelMap model) {
+        Node root = nodeService.getRoot();
+        String message = "Nodul radacina are urmatoarele informatii: id: " + root.getId() + ", json: " + root.getJson();
+        model.addAttribute("message", message);
+        return "getRoot";
     }
 }

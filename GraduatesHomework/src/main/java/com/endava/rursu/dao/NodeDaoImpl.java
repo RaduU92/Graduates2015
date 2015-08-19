@@ -64,4 +64,26 @@ public class NodeDaoImpl implements NodeDao {
             sessionFactory.getCurrentSession().delete(node);
         }
     }
+
+    @Override
+    public List<Node> getChildrensOfNode(int nodeId) {
+        List<Node> nodes = sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.eq("parentId", nodeId)).list();
+        return nodes;
+    }
+
+    @Override
+    public Node getParent(int nodeId) {
+        Node parent = new Node();
+        Node child = getNode(nodeId);
+        if (child.getParentId() != 0) {
+            parent = getNode(child.getParentId());
+        }
+        return parent;
+    }
+
+    @Override
+    public Node getRoot() {
+        Node root = (Node) sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.eq("parentId", 0)).uniqueResult();
+        return root;
+    }
 }
