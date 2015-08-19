@@ -6,6 +6,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -94,18 +95,86 @@ public class NodeDaoImpl implements NodeDao {
     //    Schimba parintele uni nod
     @Override
     public void updateParentOfNode(int nodeId, int parentNodeId) {
-        Node node = (Node) sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.eq("id", nodeId)).uniqueResult();
-        node.setParent(getNode(parentNodeId));
-        sessionFactory.getCurrentSession().update(node);
+        if (nodeId != parentNodeId) {
+            Node parent = getNode(parentNodeId);
+            Node node = getNode(nodeId);
+//            Node node = (Node) sessionFactory.getCurrentSession().createCriteria(Node.class).add(Restrictions.eq("id", nodeId)).uniqueResult();
+            Node root = getRoot();
+            boolean ok = false;
+            Node aux = node;
+//            while ((aux != root) && (ok == false) && (aux != parent)) {
+            while ((aux.getId() != root.getId()) && (ok == false)) {
+                aux = getParent(aux.getId());
+                if (aux.getId() == parent.getId()) {
+                    ok = true;
+                }
+            }
+            if (ok) {
+                parent.setParent(getParent(nodeId));
+                sessionFactory.getCurrentSession().update(parent);
+            }
+            node.setParent(parent);
+            sessionFactory.getCurrentSession().update(node);
+        }
     }
 
+    //    Configuratia top-down
     @Override
     public List<Node> fetchTopDownConfiguration(int topNodeId, int downNodeId) {
-        return null;
+        Node topNode = getNode(topNodeId);
+        Node downNode = getNode(downNodeId);
+        Node root = getRoot();
+        List<Node> nodes = new ArrayList<Node>();
+
+        if (downNode != root) {
+            ArrayList<Node> auxNodes = new ArrayList<Node>();
+            boolean ok;
+            Node nodAux = downNode;
+            auxNodes.add(downNode);
+            while ((nodAux.getId() != topNode.getId()) && (nodAux.getId() != root.getId())) {
+                nodAux = getParent(nodAux.getId());
+                auxNodes.add(nodAux);
+            }
+
+            for (int i = auxNodes.size() - 1; i >= 0; i--) {
+                ok = true;
+                for (Node node : nodes) {
+                    if (node.getJson().equals(auxNodes.get(i).getJson())) {
+                        ok = false;
+                    }
+                }
+                if (ok) {
+                    nodes.add(auxNodes.get(i));
+                }
+            }
+        }
+        return nodes;
     }
 
+    //    Configuratia bottom-up
     @Override
     public List<Node> fetchBottomUpConfiguration(int bottomNodeId, int upNodeId) {
-        return null;
+        Node bottomNode = getNode(bottomNodeId);
+        Node upNode = getNode(upNodeId);
+        Node root = getRoot();
+        List<Node> nodes = new ArrayList<Node>();
+        nodes.add(bottomNode);
+        if (bottomNode != getRoot()) {
+            boolean ok;
+            Node nodAux = bottomNode;
+            while ((nodAux.getId() != upNode.getId()) && (nodAux.getId() != root.getId())) {
+                ok = true;
+                nodAux = getParent(nodAux.getId());
+                for (Node node : nodes) {
+                    if (node.getJson().equals(nodAux.getJson())) {
+                        ok = false;
+                    }
+                }
+                if (ok) {
+                    nodes.add(nodAux);
+                }
+            }
+        }
+        return nodes;
     }
 }

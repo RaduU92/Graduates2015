@@ -17,7 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/node")
+//@RequestMapping("/node")
+@RequestMapping("/")
 public class NodeController {
 
     @Autowired
@@ -115,6 +116,32 @@ public class NodeController {
         nodeService.updateParentOfNode((Integer) jsonMap.get("id"), (Integer) jsonMap.get("parentId"));
         String message = "Updated parent of node with id: " + jsonMap.get("id");
         model.addAttribute("message", message);
-        return "updateNodeInfo";
+        return "updateParent";
+    }
+
+    @RequestMapping(value = "/bottomUpConfig/idB={idB}&idU={idU}", method = RequestMethod.GET)
+    public String bottomUpConfig(ModelMap model, @PathVariable("idB") int bottomNodeId, @PathVariable("idU") int upNodeId) {
+        List<Node> nodes = nodeService.fetchBottomUpConfiguration(bottomNodeId, upNodeId);
+        String message = "Configuratia bottom-up:\n<ul>";
+        for (Node n : nodes) {
+            message += "<li>id: " + n.getId() + " , json:" + n.getJson() + "</li>";
+        }
+        message += "</ul>";
+        model.addAttribute("message", message);
+        System.out.println("bottom: " + bottomNodeId + " , up: " + upNodeId);
+        return "bottomUpConfig";
+    }
+
+    @RequestMapping(value = "/topDownConfig/idT={idT}&idD={idD}", method = RequestMethod.GET)
+    public String topDownConfig(ModelMap model, @PathVariable("idT") int topNodeId, @PathVariable("idD") int downNodeId) {
+        List<Node> nodes = nodeService.fetchTopDownConfiguration(topNodeId, downNodeId);
+        String message = "Configuratia top-down:\n<ul>";
+        for (Node n : nodes) {
+            message += "<li>id: " + n.getId() + " , json:" + n.getJson() + "</li>";
+        }
+        message += "</ul>";
+        model.addAttribute("message", message);
+        System.out.println("top: " + topNodeId + " , down: " + downNodeId);
+        return "topDownConfig";
     }
 }
