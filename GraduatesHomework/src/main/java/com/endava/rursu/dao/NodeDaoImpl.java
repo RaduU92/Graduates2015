@@ -37,11 +37,11 @@ public class NodeDaoImpl implements NodeDao {
         } else {
             if (nodes.size() < 1) {
                 node.setId(0);
-                node.setJson("Nu exista acest nod!");
+                node.setJson(null);
                 node.setParent(null);
             } else {
                 node.setId(0);
-                node.setJson("Exista mai multe noduri cu acest ID!");
+                node.setJson(null);
                 node.setParent(null);
             }
         }
@@ -95,13 +95,12 @@ public class NodeDaoImpl implements NodeDao {
     //    Schimba parintele uni nod
     @Override
     public void updateParentOfNode(int nodeId, int parentNodeId) {
-        if (nodeId != parentNodeId) {
-            Node parent = getNode(parentNodeId);
-            Node node = getNode(nodeId);
-            Node root = getRoot();
+        Node parent = getNode(parentNodeId);
+        Node node = getNode(nodeId);
+        Node root = getRoot();
+        if ((nodeId != parentNodeId) && (node.getId() != root.getId())) {
             boolean ok = false;
             Node aux = parent;
-//            while ((aux != root) && (ok == false) && (aux != parent)) {
             while ((aux.getId() != root.getId()) && (ok == false)) {
                 aux = getParent(aux.getId());
                 if (aux.getId() == node.getId()) {

@@ -4,18 +4,16 @@ import com.endava.rursu.model.Node;
 import com.endava.rursu.service.NodeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-//@Controller
-//@RequestMapping("/node")
 @RequestMapping("/")
 public class NodeController {
     public static final String APPLICATION_JSON = "application/json";
@@ -26,12 +24,13 @@ public class NodeController {
     private ObjectMapper objectMapper;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String printWelcome() {
-        return "{\"message\" : \"Hello World!\"}";
+    public ResponseEntity<String> printWelcome() {
+        String response = "{\"message\" : \"Hello World!\"}";
+        return new ResponseEntity<String>(response, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public String insert(ModelMap model, @RequestBody String json) throws IOException {
+    public ResponseEntity<String> insert(@RequestBody String json) throws IOException {
         Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
         Node root = nodeService.getRoot();
         if (root == null) {
@@ -43,121 +42,190 @@ public class NodeController {
                 nodeService.insertNode(new Node(objectMapper.writeValueAsString(jsonMap.get("json")), root, new ArrayList<Node>()));
             }
         }
-        String message = "Inserted node with json: " + objectMapper.writeValueAsString(jsonMap.get("json")) + " and parrent id: " + jsonMap.get("parentId");
-        model.addAttribute("message", message);
-        return "{\"message\" : \"Inserted new node.\"}";
+        String response = "{\"message\" : \"Inserted new node.\"}";
+        return new ResponseEntity<String>(response, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/select/{id}", method = RequestMethod.GET, produces = APPLICATION_JSON)
     @ResponseBody
-//    public String select(ModelMap model, @PathVariable("id") int nodeId) {
-    public Map<String, String> select(@PathVariable("id") int nodeId) throws IOException {
-//    public Node select(@PathVariable("id") int nodeId) throws IOException {
+    public ResponseEntity<String> select(@PathVariable("id") int nodeId) {
         Node node = nodeService.getNode(nodeId);
-        Map map = objectMapper.readValue(node.getJson(), Map.class);
-        map.put("nodeId: ", node.getId());
-        if (node.getParent() != null) {
-            map.put("parentId: ", node.getParent().getId());
+        String response;
+        if (node.getId() != 0) {
+            response = "{\"json\":" + node.getJson() + ",\"id\":" + node.getId() + ",\"parentId\":";
+            if (node.getParent() != null) {
+                response += node.getParent().getId();
+            } else {
+                response += null;
+            }
+            response += "}";
+            return new ResponseEntity<String>(response, HttpStatus.OK);
         } else {
-            map.put("parentId: ", null);
+            response = "{\"json\":" + null + ",\"id\":" + node.getId() + ",\"parentId\":" + null + "}";
+            return new ResponseEntity<String>(response, HttpStatus.NOT_FOUND);
         }
-        return map;
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public String update(@RequestBody String json) throws IOException {
+    public ResponseEntity<String> update(@RequestBody String json) throws IOException {
         Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
-        nodeService.updateNodeInfo((Integer) jsonMap.get("id"), objectMapper.writeValueAsString(jsonMap.get("json")));
-        return "{\"message\" : \"Updated node.\"}";
+        if (nodeService.getNode((Integer) jsonMap.get("id")).getId() != 0) {
+            nodeService.updateNodeInfo((Integer) jsonMap.get("id"), objectMapper.writeValueAsString(jsonMap.get("json")));
+            String response = "{\"message\" : \"Updated node.\"}";
+            return new ResponseEntity<String>(response, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("", HttpStatus.NOT_MODIFIED);
+        }
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public String delete(@RequestBody String json) throws IOException {
+    public ResponseEntity<String> delete(@RequestBody String json) throws IOException {
         Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
-        nodeService.deleteNode((Integer) jsonMap.get("id"));
-        return "{\"message\" : \"Deleted node.\"}";
+        if (nodeService.getNode((Integer) jsonMap.get("id")).getId() != 0) {
+            nodeService.deleteNode((Integer) jsonMap.get("id"));
+            String response = "{\"message\" : \"Deleted node.\"}";
+            return new ResponseEntity<String>(response, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("{\"message\" : \"Node not found to be deleted.\"}", HttpStatus.NOT_FOUND);
+        }
     }
 
-    //    @RequestMapping(value = "/getChildrens/{id}", method = RequestMethod.GET)
     @RequestMapping(value = "/getChildrens/{id}", method = RequestMethod.GET, produces = APPLICATION_JSON)
     @ResponseBody
-    public Map<String, String> getChildrens(@PathVariable("id") int nodeId) throws IOException {
-//    public String getChildrens(@PathVariable("id") int nodeId) throws IOException {
-        List<Node> nodes = nodeService.getChildrensOfNode(nodeId);
+    public ResponseEntity<String> getChildrens(@PathVariable("id") int nodeId) {
+        Node node = nodeService.getNode(nodeId);
+        String response = "{\"parent\":";
+        if ((nodeService.getRoot() != null) && node.getId() != 0) {
+            response += "{\"json\":" + node.getJson() + ",\"id\":" + node.getId() + ",\"parentId\":";
+            if (node.getParent() != null) {
+                response += node.getParent().getId();
+            } else {
+                response += null;
+            }
+            response += "},\"childrens\":[";
+            List<Node> nodes = nodeService.getChildrensOfNode(nodeId);
+            if (nodes.size() > 0) {
+                int i = 0;
+                for (Node n : nodes) {
+                    response += "{\"json\":" + n.getJson() + ",\"id\":" + n.getId() + ",\"parentId\":";
+                    if (n.getParent() != null) {
+                        response += n.getParent().getId();
+                    } else {
+                        response += null;
+                    }
+                    if (i < nodes.size() - 1) {
+                        response += "},";
+                    } else {
+                        response += "}";
+                    }
+                    i++;
+                }
+            }
+            response += "]}";
+            return new ResponseEntity<String>(response, HttpStatus.OK);
+        } else {
+            response += null + ",\"childrens\":[]}";
+            return new ResponseEntity<String>(response, HttpStatus.NOT_FOUND);
+        }
 
-        Map map = objectMapper.readValue(nodes.get(0).getJson(), Map.class);
-        map.put("nodeId: ", nodes.get(0).getId());
-        map.put("parentId: ", nodes.get(0).getParent().getId());
-
-//        for (Node n : nodes) {
-//            System.out.println(n.getId() + " " + n.getJson());
-//        }
-        return map;
-//        return objectMapper.writeValueAsString(nodes);
     }
 
     @RequestMapping(value = "/getParent/{id}", method = RequestMethod.GET, produces = APPLICATION_JSON)
     @ResponseBody
-    public Map<String, String> getParent(@PathVariable("id") int nodeId) throws IOException {
-        if (nodeService.getNode(nodeId).getId() == nodeService.getRoot().getId()) {
-            Map map = new HashMap();
-            map.put("message: ", "Acesta este nodul radacina si nu are parinte!");
-            return map;
-        } else {
-            Node node = nodeService.getParent(nodeId);
-            Map map = objectMapper.readValue(node.getJson(), Map.class);
-            map.put("nodeId: ", node.getId());
-            if (node.getParent() != null) {
-                map.put("parentId: ", node.getParent().getId());
+    public ResponseEntity<String> getParent(@PathVariable("id") int nodeId) {
+        String response;
+        if (nodeService.getNode(nodeId).getId() != 0) {
+            if (nodeService.getNode(nodeId).getId() == nodeService.getRoot().getId()) {
+                response = "{\"json\":" + null + ",\"id\":" + null + ",\"parentId\":" + null + "}";
             } else {
-                map.put("parentId: ", null);
+                Node node = nodeService.getParent(nodeId);
+                response = "{\"json\":" + node.getJson() + ",\"id\":" + node.getId() + ",\"parentId\":";
+                if (node.getParent() != null) {
+                    response += node.getParent().getId();
+                } else {
+                    response += null;
+                }
+                response += "}";
             }
-            return map;
+            return new ResponseEntity<String>(response, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("", HttpStatus.NOT_FOUND);
         }
     }
 
     @RequestMapping(value = "/getRoot", method = RequestMethod.GET, produces = APPLICATION_JSON)
     @ResponseBody
-    public Map<String, String> getRoot() throws IOException {
+    public ResponseEntity<String> getRoot() {
         Node root = nodeService.getRoot();
-        Map map = objectMapper.readValue(root.getJson(), Map.class);
-        map.put("nodeId: ", root.getId());
-        map.put("parentId: ", null);
-        return map;
+        if (root != null) {
+            String response = "{\"json\":" + root.getJson() + ",\"id\":" + root.getId() + ",\"parentId\":" + null + "}";
+            return new ResponseEntity<String>(response, HttpStatus.OK);
+        } else {
+            String response = "{\"json\":" + null + ",\"id\":" + null + ",\"parentId\":" + null + "}";
+            return new ResponseEntity<String>(response, HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/updateParent", method = RequestMethod.PUT)
-    public String updateParent(@RequestBody String json) throws IOException {
+    public ResponseEntity<String> updateParent(@RequestBody String json) throws IOException {
         Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
-        nodeService.updateParentOfNode((Integer) jsonMap.get("id"), (Integer) jsonMap.get("parentId"));
-        return "{\"message\" : \"Parent updated.\"}";
+        if ((nodeService.getRoot() != null) && (nodeService.getNode((Integer) jsonMap.get("id")).getId() != nodeService.getRoot().getId()) && (nodeService.getNode((Integer) jsonMap.get("id")).getId() != 0)) {
+            nodeService.updateParentOfNode((Integer) jsonMap.get("id"), (Integer) jsonMap.get("parentId"));
+            String response = "{\"message\" : \"Parent updated.\"}";
+            return new ResponseEntity<String>(response, HttpStatus.OK);
+        } else {
+            String response = "{\"message\" : \"Parent not updated.\"}";
+            return new ResponseEntity<String>(response, HttpStatus.NOT_MODIFIED);
+        }
     }
 
     @RequestMapping(value = "/bottomUpConfig/idB={idB}&idU={idU}", method = RequestMethod.GET)
-    public String bottomUpConfig(ModelMap model, @PathVariable("idB") int bottomNodeId,
-                                 @PathVariable("idU") int upNodeId) {
+    public ResponseEntity<String> bottomUpConfig(@PathVariable("idB") int bottomNodeId, @PathVariable("idU") int upNodeId) {
         List<Node> nodes = nodeService.fetchBottomUpConfiguration(bottomNodeId, upNodeId);
-        String message = "Configuratia bottom-up:\n<ul>";
-        for (Node n : nodes) {
-            message += "<li>id: " + n.getId() + " , json:" + n.getJson() + "</li>";
+        String response = "{\"bottomUp\":[";
+        if (nodes.size() > 0) {
+            int i = 0;
+            for (Node n : nodes) {
+                response += "{\"json\":" + n.getJson() + ",\"id\":" + n.getId() + ",\"parentId\":";
+                if (n.getParent() != null) {
+                    response += n.getParent().getId();
+                } else {
+                    response += null;
+                }
+                if (i < nodes.size() - 1) {
+                    response += "},";
+                } else {
+                    response += "}";
+                }
+                i++;
+            }
         }
-        message += "</ul>";
-        model.addAttribute("message", message);
-        System.out.println("bottom: " + bottomNodeId + " , up: " + upNodeId);
-        return "bottomUpConfig";
+        response += "]}";
+        return new ResponseEntity<String>(response, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/topDownConfig/idT={idT}&idD={idD}", method = RequestMethod.GET)
-    public String topDownConfig(ModelMap model, @PathVariable("idT") int topNodeId,
-                                @PathVariable("idD") int downNodeId) {
+    public ResponseEntity<String> topDownConfig(@PathVariable("idT") int topNodeId, @PathVariable("idD") int downNodeId) {
         List<Node> nodes = nodeService.fetchTopDownConfiguration(topNodeId, downNodeId);
-        String message = "Configuratia top-down:\n<ul>";
-        for (Node n : nodes) {
-            message += "<li>id: " + n.getId() + " , json:" + n.getJson() + "</li>";
+        String response = "{\"topDown\":[";
+        if (nodes.size() > 0) {
+            int i = 0;
+            for (Node n : nodes) {
+                response += "{\"json\":" + n.getJson() + ",\"id\":" + n.getId() + ",\"parentId\":";
+                if (n.getParent() != null) {
+                    response += n.getParent().getId();
+                } else {
+                    response += null;
+                }
+                if (i < nodes.size() - 1) {
+                    response += "},";
+                } else {
+                    response += "}";
+                }
+                i++;
+            }
         }
-        message += "</ul>";
-        model.addAttribute("message", message);
-        System.out.println("top: " + topNodeId + " , down: " + downNodeId);
-        return "topDownConfig";
+        response += "]}";
+        return new ResponseEntity<String>(response, HttpStatus.OK);
     }
 }
