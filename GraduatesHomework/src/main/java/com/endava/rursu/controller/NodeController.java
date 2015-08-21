@@ -33,17 +33,27 @@ public class NodeController {
     public ResponseEntity<String> insert(@RequestBody String json) throws IOException {
         Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
         Node root = nodeService.getRoot();
+        String response;
         if (root == null) {
             nodeService.insertNode(new Node(objectMapper.writeValueAsString(jsonMap.get("json")), null, new ArrayList<Node>()));
+            response = "{\"message\" : \"Inserted new node.\"}";
+            return new ResponseEntity<String>(response, HttpStatus.CREATED);
         } else {
-            if (jsonMap.get("parentId") != null) {
-                nodeService.insertNode(new Node(objectMapper.writeValueAsString(jsonMap.get("json")), nodeService.getNode((Integer) jsonMap.get("parentId")), new ArrayList<Node>()));
-            } else {
+            if (jsonMap.get("parentId") == null) {
                 nodeService.insertNode(new Node(objectMapper.writeValueAsString(jsonMap.get("json")), root, new ArrayList<Node>()));
+                response = "{\"message\" : \"Inserted new node.\"}";
+                return new ResponseEntity<String>(response, HttpStatus.CREATED);
+            } else {
+                if (nodeService.getNode((Integer) jsonMap.get("parentId")).getId() != 0) {
+                    nodeService.insertNode(new Node(objectMapper.writeValueAsString(jsonMap.get("json")), nodeService.getNode((Integer) jsonMap.get("parentId")), new ArrayList<Node>()));
+                    response = "{\"message\" : \"Inserted new node.\"}";
+                    return new ResponseEntity<String>(response, HttpStatus.CREATED);
+                } else {
+                    response = "{\"message\" : \"Parent node not found!\"}";
+                    return new ResponseEntity<String>(response, HttpStatus.NOT_FOUND);
+                }
             }
         }
-        String response = "{\"message\" : \"Inserted new node.\"}";
-        return new ResponseEntity<String>(response, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/select/{id}", method = RequestMethod.GET, produces = APPLICATION_JSON)
@@ -74,7 +84,7 @@ public class NodeController {
             String response = "{\"message\" : \"Updated node.\"}";
             return new ResponseEntity<String>(response, HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>("", HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<String>("{\"message\" : \"Node was not updated!\"}", HttpStatus.NOT_MODIFIED);
         }
     }
 
@@ -149,7 +159,7 @@ public class NodeController {
             }
             return new ResponseEntity<String>(response, HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>("", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String>("{\"json\":" + null + ",\"id\":" + null + ",\"parentId\":" + null + "}", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -169,7 +179,7 @@ public class NodeController {
     @RequestMapping(value = "/updateParent", method = RequestMethod.PUT)
     public ResponseEntity<String> updateParent(@RequestBody String json) throws IOException {
         Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
-        if ((nodeService.getRoot() != null) && (nodeService.getNode((Integer) jsonMap.get("id")).getId() != nodeService.getRoot().getId()) && (nodeService.getNode((Integer) jsonMap.get("id")).getId() != 0)) {
+        if ((nodeService.getRoot() != null) && (nodeService.getNode((Integer) jsonMap.get("id")).getId() != nodeService.getRoot().getId()) && (nodeService.getNode((Integer) jsonMap.get("id")).getId() != 0) && (nodeService.getNode((Integer) jsonMap.get("parentId")).getId() != 0)) {
             nodeService.updateParentOfNode((Integer) jsonMap.get("id"), (Integer) jsonMap.get("parentId"));
             String response = "{\"message\" : \"Parent updated.\"}";
             return new ResponseEntity<String>(response, HttpStatus.OK);
@@ -181,51 +191,63 @@ public class NodeController {
 
     @RequestMapping(value = "/bottomUpConfig/idB={idB}&idU={idU}", method = RequestMethod.GET)
     public ResponseEntity<String> bottomUpConfig(@PathVariable("idB") int bottomNodeId, @PathVariable("idU") int upNodeId) {
-        List<Node> nodes = nodeService.fetchBottomUpConfiguration(bottomNodeId, upNodeId);
-        String response = "{\"bottomUp\":[";
-        if (nodes.size() > 0) {
-            int i = 0;
-            for (Node n : nodes) {
-                response += "{\"json\":" + n.getJson() + ",\"id\":" + n.getId() + ",\"parentId\":";
-                if (n.getParent() != null) {
-                    response += n.getParent().getId();
-                } else {
-                    response += null;
+        String response;
+        if ((nodeService.getNode(bottomNodeId).getId() != 0) && (nodeService.getNode(upNodeId).getId() != 0)) {
+            List<Node> nodes = nodeService.fetchBottomUpConfiguration(bottomNodeId, upNodeId);
+            response = "{\"bottomUp\":[";
+            if (nodes.size() > 0) {
+                int i = 0;
+                for (Node n : nodes) {
+                    response += "{\"json\":" + n.getJson() + ",\"id\":" + n.getId() + ",\"parentId\":";
+                    if (n.getParent() != null) {
+                        response += n.getParent().getId();
+                    } else {
+                        response += null;
+                    }
+                    if (i < nodes.size() - 1) {
+                        response += "},";
+                    } else {
+                        response += "}";
+                    }
+                    i++;
                 }
-                if (i < nodes.size() - 1) {
-                    response += "},";
-                } else {
-                    response += "}";
-                }
-                i++;
             }
+            response += "]}";
+            return new ResponseEntity<String>(response, HttpStatus.OK);
+        } else {
+            response = "{\"bottomUp\":[]}";
+            return new ResponseEntity<String>(response, HttpStatus.NOT_FOUND);
         }
-        response += "]}";
-        return new ResponseEntity<String>(response, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/topDownConfig/idT={idT}&idD={idD}", method = RequestMethod.GET)
     public ResponseEntity<String> topDownConfig(@PathVariable("idT") int topNodeId, @PathVariable("idD") int downNodeId) {
-        List<Node> nodes = nodeService.fetchTopDownConfiguration(topNodeId, downNodeId);
-        String response = "{\"topDown\":[";
-        if (nodes.size() > 0) {
-            int i = 0;
-            for (Node n : nodes) {
-                response += "{\"json\":" + n.getJson() + ",\"id\":" + n.getId() + ",\"parentId\":";
-                if (n.getParent() != null) {
-                    response += n.getParent().getId();
-                } else {
-                    response += null;
+        String response;
+        if ((nodeService.getNode(topNodeId).getId() != 0) && (nodeService.getNode(downNodeId).getId() != 0)) {
+            List<Node> nodes = nodeService.fetchTopDownConfiguration(topNodeId, downNodeId);
+            response = "{\"topDown\":[";
+            if (nodes.size() > 0) {
+                int i = 0;
+                for (Node n : nodes) {
+                    response += "{\"json\":" + n.getJson() + ",\"id\":" + n.getId() + ",\"parentId\":";
+                    if (n.getParent() != null) {
+                        response += n.getParent().getId();
+                    } else {
+                        response += null;
+                    }
+                    if (i < nodes.size() - 1) {
+                        response += "},";
+                    } else {
+                        response += "}";
+                    }
+                    i++;
                 }
-                if (i < nodes.size() - 1) {
-                    response += "},";
-                } else {
-                    response += "}";
-                }
-                i++;
             }
+            response += "]}";
+            return new ResponseEntity<String>(response, HttpStatus.OK);
+        } else {
+            response = "{\"topDown\":[]}";
+            return new ResponseEntity<String>(response, HttpStatus.NOT_FOUND);
         }
-        response += "]}";
-        return new ResponseEntity<String>(response, HttpStatus.OK);
     }
 }
