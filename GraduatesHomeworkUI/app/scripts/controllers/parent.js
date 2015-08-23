@@ -3,9 +3,10 @@
  */
 'use strict';
 
-angular.module('parentApp', [])
-  .controller('ParentCtrl', function getParent($scope, $http) {
-    $http.get('http://localhost:8081/getParent/10').success(function (data) {
+angular.module('graduatesHomeworkUiApp')
+  .controller('ParentCtrl', function getParent($scope, ParentService) {
+    var nodeId = 2;
+    ParentService.nodeParent(nodeId, function (data) {
       $scope.parent = data;
     });
   });

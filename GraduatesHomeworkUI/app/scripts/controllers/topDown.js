@@ -3,9 +3,11 @@
  */
 'use strict';
 
-angular.module('topDownApp', [])
-  .controller('TopDownCtrl', function topDownConfig($scope, $http) {
-    $http.get('http://localhost:8081/topDownConfig/idT=1&idD=12').success(function (data) {
+angular.module('graduatesHomeworkUiApp')
+  .controller('TopDownCtrl', function topDownConfig($scope, TopDownService) {
+    var topNodeId = 1;
+    var downNodeId = 7;
+    TopDownService.topDownConfig(topNodeId, downNodeId, function (data) {
       $scope.configuration = data;
     });
   });

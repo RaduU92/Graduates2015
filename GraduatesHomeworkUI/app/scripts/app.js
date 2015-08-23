@@ -10,16 +10,6 @@
  */
 angular
   .module('graduatesHomeworkUiApp', [
-    'insertApp',
-    'updateApp',
-    'updateParentApp',
-    'deleteApp',
-    'nodeApp',
-    'rootApp',
-    'topDownApp',
-    'bottomUpApp',
-    'childrenApp',
-    'parentApp',
     'ngAnimate',
     'ngCookies',
     'ngResource',

@@ -3,19 +3,17 @@
  */
 'use strict';
 
-angular.module('insertApp', [])
-  .controller('InsertCtrl', function insertNode($scope, $http) {
+angular.module('graduatesHomeworkUiApp')
+  .controller('InsertCtrl', function insertNode($scope, InsertService) {
+    var content = "test";
+    var parentId = 1;
     var nodeInfo = {
-      "json": {
-        "key": "json"
+      json: {
+        key: content
       },
-      "parentId": 1
+      parentId: parentId
     };
-    var res = $http.post('http://localhost:8081/insert', nodeInfo);
-    res.success(function (data) {
-      $scope.message = data;
-    });
-    res.error(function (data) {
+    InsertService.newNode(nodeInfo, function (data) {
       $scope.message = data;
     });
   });

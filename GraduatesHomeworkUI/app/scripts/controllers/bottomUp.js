@@ -3,9 +3,11 @@
  */
 'use strict';
 
-angular.module('bottomUpApp', [])
-  .controller('BottomUpCtrl', function bottomUpConfig($scope, $http) {
-    $http.get('http://localhost:8081/bottomUpConfig/idB=12&idU=1').success(function (data) {
+angular.module('graduatesHomeworkUiApp')
+  .controller('BottomUpCtrl', function bottomUpConfig($scope, BottomUpService) {
+    var bottomNodeId = 7;
+    var upNodeId = 1;
+    BottomUpService.bottomUpConfig(bottomNodeId, upNodeId, function (data) {
       $scope.configuration = data;
     });
   });

@@ -3,17 +3,15 @@
  */
 'use strict';
 
-angular.module('updateParentApp', [])
-  .controller('UpdateParentCtrl', function updateParent($scope, $http) {
+angular.module('graduatesHomeworkUiApp')
+  .controller('UpdateParentCtrl', function updateParent($scope, UpdateParentService) {
+    var nodeId = 12;
+    var parentNodeId = 14;
     var nodeInfo = {
-      "id": 14,
-      "parentId": 8
+      id: nodeId,
+      parentId: parentNodeId
     };
-    var res = $http.put('http://localhost:8081/updateParent', nodeInfo);
-    res.success(function (data) {
-      $scope.message = data;
-    });
-    res.error(function (data) {
+    UpdateParentService.updateNodeParent(nodeInfo, function (data) {
       $scope.message = data;
     });
   });

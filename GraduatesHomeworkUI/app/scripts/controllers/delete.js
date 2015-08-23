@@ -3,16 +3,13 @@
  */
 'use strict';
 
-angular.module('deleteApp', [])
-  .controller('DeleteCtrl', function delNode($scope, $http) {
+angular.module('graduatesHomeworkUiApp')
+  .controller('DeleteCtrl', function delNode($scope, DeleteService) {
+    var nodeId = 14;
     var nodeInfo = {
-      "id": 19
+      id: nodeId
     };
-    var res = $http.delete('http://localhost:8081/delete', nodeInfo);
-    res.success(function (data) {
-      $scope.message = data;
-    });
-    res.error(function (data) {
+    DeleteService.deleteNode(nodeInfo, function (data) {
       $scope.message = data;
     });
   });

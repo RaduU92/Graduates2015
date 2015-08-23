@@ -3,19 +3,17 @@
  */
 'use strict';
 
-angular.module('updateApp', [])
-  .controller('UpdateCtrl', function updateNode($scope, $http) {
+angular.module('graduatesHomeworkUiApp')
+  .controller('UpdateCtrl', function updateNode($scope, UpdateService) {
+    var nodeId = 14;
+    var content = "new node added";
     var nodeInfo = {
-      "id": 1,
-      "json": {
-        "key": "zzz"
+      id: nodeId,
+      json: {
+        key: content
       }
     };
-    var res = $http.put('http://localhost:8081/update', nodeInfo);
-    res.success(function (data) {
-      $scope.message = data;
-    });
-    res.error(function (data) {
+    UpdateService.updateNode(nodeInfo, function (data) {
       $scope.message = data;
     });
   });

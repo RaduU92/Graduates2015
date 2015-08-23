@@ -3,9 +3,10 @@
  */
 'use strict';
 
-angular.module('nodeApp', [])
-  .controller('NodeCtrl', function getNode($scope, $http) {
-    $http.get('http://localhost:8081/select/10').success(function (data) {
+angular.module('graduatesHomeworkUiApp')
+  .controller('NodeCtrl', function getNode($scope, NodeService) {
+    var id = 7;
+    NodeService.myNode(id, function (data) {
       $scope.nod = data;
     });
   });

@@ -3,9 +3,10 @@
  */
 'use strict';
 
-angular.module('childrenApp', [])
-  .controller('ChildrenCtrl', function getChildrens($scope, $http) {
-    $http.get('http://localhost:8081/getChildrens/1').success(function (data) {
+angular.module('graduatesHomeworkUiApp')
+  .controller('ChildrenCtrl', function getChildrens($scope, ChildrenService) {
+    var id = 1;
+    ChildrenService.nodeChildrens(id, function (data) {
       $scope.childs = data;
     });
   });

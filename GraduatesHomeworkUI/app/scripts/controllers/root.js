@@ -3,9 +3,9 @@
  */
 'use strict';
 
-angular.module('rootApp', [])
-  .controller('RootCtrl', function getRoot($scope, $http) {
-    $http.get('http://localhost:8081/getRoot').success(function (data) {
+angular.module('graduatesHomeworkUiApp')
+  .controller('RootCtrl', function getRoot($scope, RootService) {
+    RootService.getRoot(function (data) {
       $scope.root = data;
     });
   });
