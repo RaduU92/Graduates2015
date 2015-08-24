@@ -6,8 +6,8 @@
 angular.module('graduatesHomeworkUiApp')
   .factory('ChildrenService', function ($http) {
     return {
-      nodeChildrens: function (id, callback) {
-        $http.get('http://localhost:8081/getChildrens/' + id).success(callback);
+      nodeChildrens: function (id) {
+        return $http.get('http://localhost:8081/getChildrens/' + id);
       }
     }
   });

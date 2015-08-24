@@ -4,14 +4,21 @@
 'use strict';
 
 angular.module('graduatesHomeworkUiApp')
-  .controller('UpdateParentCtrl', function updateParent($scope, UpdateParentService) {
-    var nodeId = 12;
-    var parentNodeId = 14;
-    var nodeInfo = {
-      id: nodeId,
-      parentId: parentNodeId
+  .controller('UpdateParentCtrl', function updateParent($scope, UpdateParentService, AllNodesService) {
+    $scope.modifyParent = function () {
+      var nodeInfo = {
+        id: $scope.nodeId,
+        parentId: $scope.parentNodeId
+      };
+      UpdateParentService.updateNodeParent(nodeInfo).then(function (response) {
+        $scope.message = response.data;
+      }, function (response) {
+        $scope.message = response.data;
+      });
     };
-    UpdateParentService.updateNodeParent(nodeInfo, function (data) {
-      $scope.message = data;
+    AllNodesService.getAll().then(function (response) {
+      $scope.nodes = response.data;
+    }, function (response) {
+      $scope.nodes = response.data;
     });
   });

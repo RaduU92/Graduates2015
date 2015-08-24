@@ -6,10 +6,8 @@
 angular.module('graduatesHomeworkUiApp')
   .factory('DeleteService', function ($http) {
     return {
-      deleteNode: function (nodeInfo, callback) {
-        var res = $http({method: 'DELETE', url: 'http://localhost:8081/delete', data: nodeInfo});
-        res.success(callback);
-        res.error(callback);
+      deleteNode: function (nodeInfo) {
+        return $http({method: 'DELETE', url: 'http://localhost:8081/delete', data: nodeInfo});
       }
     }
   });

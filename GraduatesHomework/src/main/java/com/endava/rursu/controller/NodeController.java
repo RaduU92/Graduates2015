@@ -41,12 +41,12 @@ public class NodeController {
         } else {
             if (jsonMap.get("parentId") == null) {
                 nodeService.insertNode(new Node(objectMapper.writeValueAsString(jsonMap.get("json")), root, new ArrayList<Node>()));
-                response = "{\"message\" : \"Inserted new node.\"}";
+                response = "{\"message\" : \"A new node was inserted.\"}";
                 return new ResponseEntity<String>(response, HttpStatus.CREATED);
             } else {
                 if (nodeService.getNode((Integer) jsonMap.get("parentId")).getId() != 0) {
                     nodeService.insertNode(new Node(objectMapper.writeValueAsString(jsonMap.get("json")), nodeService.getNode((Integer) jsonMap.get("parentId")), new ArrayList<Node>()));
-                    response = "{\"message\" : \"Inserted new node.\"}";
+                    response = "{\"message\" : \"A new node was inserted.\"}";
                     return new ResponseEntity<String>(response, HttpStatus.CREATED);
                 } else {
                     response = "{\"message\" : \"Parent node not found!\"}";
@@ -81,7 +81,7 @@ public class NodeController {
         Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
         if (nodeService.getNode((Integer) jsonMap.get("id")).getId() != 0) {
             nodeService.updateNodeInfo((Integer) jsonMap.get("id"), objectMapper.writeValueAsString(jsonMap.get("json")));
-            String response = "{\"message\" : \"Updated node.\"}";
+            String response = "{\"message\" : \"Node updated.\"}";
             return new ResponseEntity<String>(response, HttpStatus.OK);
         } else {
             return new ResponseEntity<String>("{\"message\" : \"Node was not updated!\"}", HttpStatus.NOT_MODIFIED);
@@ -93,7 +93,7 @@ public class NodeController {
         Map<String, Object> jsonMap = objectMapper.readValue(json, Map.class);
         if (nodeService.getNode((Integer) jsonMap.get("id")).getId() != 0) {
             nodeService.deleteNode((Integer) jsonMap.get("id"));
-            String response = "{\"message\" : \"Deleted node.\"}";
+            String response = "{\"message\" : \"Node deleted.\"}";
             return new ResponseEntity<String>(response, HttpStatus.OK);
         } else {
             return new ResponseEntity<String>("{\"message\" : \"Node not found to be deleted.\"}", HttpStatus.NOT_FOUND);
@@ -247,6 +247,38 @@ public class NodeController {
             return new ResponseEntity<String>(response, HttpStatus.OK);
         } else {
             response = "{\"topDown\":[]}";
+            return new ResponseEntity<String>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = APPLICATION_JSON)
+    @ResponseBody
+    public ResponseEntity<String> getAllNodes() {
+        List<Node> nodes = nodeService.getAllNodes();
+        Node root = nodeService.getRoot();
+        String response = "{\"nodes\":[";
+        if (root != null) {
+            if (nodes.size() > 0) {
+                int i = 0;
+                for (Node n : nodes) {
+                    response += "{\"json\":" + n.getJson() + ",\"id\":" + n.getId() + ",\"parentId\":";
+                    if (n.getParent() != null) {
+                        response += n.getParent().getId();
+                    } else {
+                        response += null;
+                    }
+                    if (i < nodes.size() - 1) {
+                        response += "},";
+                    } else {
+                        response += "}";
+                    }
+                    i++;
+                }
+            }
+            response += "]}";
+            return new ResponseEntity<String>(response, HttpStatus.OK);
+        } else {
+            response += "]}";
             return new ResponseEntity<String>(response, HttpStatus.NOT_FOUND);
         }
     }

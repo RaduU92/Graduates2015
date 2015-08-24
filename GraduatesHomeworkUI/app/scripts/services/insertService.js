@@ -6,10 +6,20 @@
 angular.module('graduatesHomeworkUiApp')
   .factory('InsertService', function ($http) {
     return {
-      newNode: function (nodeInfo, callback) {
-        var res = $http.post('http://localhost:8081/insert', nodeInfo);
-        res.success(callback);
-        res.error(callback);
+      newNode: function (nodeInfo) {
+        return $http.post('http://localhost:8081/insert', nodeInfo);
       }
     }
   });
+
+
+//angular.module('graduatesHomeworkUiApp')
+//  .factory('InsertService', function ($http) {
+//    return {
+//      newNode: function (nodeInfo, callback) {
+//        var res = $http.post('http://localhost:8081/insert', nodeInfo);
+//        res.success(callback);
+//        res.error(callback);
+//      }
+//    }
+//  });

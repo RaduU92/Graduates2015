@@ -6,8 +6,8 @@
 angular.module('graduatesHomeworkUiApp')
   .factory('TopDownService', function ($http) {
     return {
-      topDownConfig: function (topNodeId, downNodeId, callback) {
-        $http.get('http://localhost:8081/topDownConfig/idT=' + topNodeId + '&idD=' + downNodeId).success(callback);
+      topDownConfig: function (topNodeId, downNodeId) {
+        return $http.get('http://localhost:8081/topDownConfig/idT=' + topNodeId + '&idD=' + downNodeId);
       }
     }
   });

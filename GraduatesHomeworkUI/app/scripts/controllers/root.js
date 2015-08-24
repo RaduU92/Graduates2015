@@ -5,7 +5,9 @@
 
 angular.module('graduatesHomeworkUiApp')
   .controller('RootCtrl', function getRoot($scope, RootService) {
-    RootService.getRoot(function (data) {
-      $scope.root = data;
+    RootService.getRoot().then(function (response) {
+      $scope.root = response.data;
+    }, function (response) {
+      $scope.root = response.data;
     });
   });

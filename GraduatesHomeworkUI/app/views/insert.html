@@ -1,1 +1,11 @@
+<h3>Add new node</h3>
+
+<form>
+  <!--Key: <input type="text" name="contentInput" ng-model="key"><br>-->
+  Value: <input type="text" name="contentInput" ng-model="info"><br>
+  Parent node ID: <select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
+                          ng-model="parentId"></select><br>
+  <button ng-click="addNewNode()">Add node</button>
+</form>
+
 <p>{{message.message}}</p>

@@ -4,10 +4,17 @@
 'use strict';
 
 angular.module('graduatesHomeworkUiApp')
-  .controller('TopDownCtrl', function topDownConfig($scope, TopDownService) {
-    var topNodeId = 1;
-    var downNodeId = 7;
-    TopDownService.topDownConfig(topNodeId, downNodeId, function (data) {
-      $scope.configuration = data;
+  .controller('TopDownCtrl', function topDownConfig($scope, TopDownService, AllNodesService) {
+    $scope.topDownF = function () {
+      TopDownService.topDownConfig($scope.topNodeId, $scope.downNodeId).then(function (response) {
+        $scope.configuration = response.data;
+      }, function (response) {
+        $scope.configuration = response.data;
+      });
+    };
+    AllNodesService.getAll().then(function (response) {
+      $scope.nodes = response.data;
+    }, function (response) {
+      $scope.nodes = response.data;
     });
   });

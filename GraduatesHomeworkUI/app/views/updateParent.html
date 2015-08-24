@@ -1,1 +1,14 @@
+<h3>Update parent of node</h3>
+
+<form>
+  <div>Select node:</div>
+  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="nodeId"></select>
+
+  <div>Select new parent node:</div>
+  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="parentNodeId"
+    ></select>
+  <br>
+  <button ng-click="modifyParent()">Update parent</button>
+</form>
+
 <p>{{message.message}}</p>

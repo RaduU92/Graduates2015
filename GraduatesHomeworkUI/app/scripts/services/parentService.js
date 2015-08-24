@@ -6,8 +6,8 @@
 angular.module('graduatesHomeworkUiApp')
   .factory('ParentService', function ($http) {
     return {
-      nodeParent: function (nodeId, callback) {
-        $http.get('http://localhost:8081/getParent/' + nodeId).success(callback);
+      nodeParent: function (nodeId) {
+        return $http.get('http://localhost:8081/getParent/' + nodeId);
       }
     }
   });

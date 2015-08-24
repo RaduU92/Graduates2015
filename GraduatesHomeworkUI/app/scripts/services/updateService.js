@@ -6,10 +6,8 @@
 angular.module('graduatesHomeworkUiApp')
   .factory('UpdateService', function ($http) {
     return {
-      updateNode: function (nodeInfo, callback) {
-        var res = $http.put('http://localhost:8081/update', nodeInfo);
-        res.success(callback);
-        res.error(callback);
+      updateNode: function (nodeInfo) {
+        return $http.put('http://localhost:8081/update', nodeInfo);
       }
     }
   });

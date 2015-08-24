@@ -76,4 +76,10 @@ public class NodeServiceImpl implements NodeService {
     public List<Node> fetchBottomUpConfiguration(int bottomNodeId, int upNodeId) {
         return nodeDao.fetchBottomUpConfiguration(bottomNodeId, upNodeId);
     }
+
+    @Override
+    @Transactional
+    public List<Node> getAllNodes() {
+        return nodeDao.getAllNodes();
+    }
 }

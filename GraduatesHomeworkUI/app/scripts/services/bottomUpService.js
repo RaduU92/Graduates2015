@@ -6,8 +6,8 @@
 angular.module('graduatesHomeworkUiApp')
   .factory('BottomUpService', function ($http) {
     return {
-      bottomUpConfig: function (bottomNodeId, upNodeId, callback) {
-        $http.get('http://localhost:8081/bottomUpConfig/idB=' + bottomNodeId + '&idU=' + upNodeId).success(callback);
+      bottomUpConfig: function (bottomNodeId, upNodeId) {
+        return $http.get('http://localhost:8081/bottomUpConfig/idB=' + bottomNodeId + '&idU=' + upNodeId);
       }
     }
   });

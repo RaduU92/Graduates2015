@@ -1,3 +1,17 @@
-<div ng-repeat="conf in configuration.bottomUp">
-  <div>{{conf.id}}, {{conf.json}}, {{conf.parentId}}</div>
+<h3>Bottom-Up Configuration</h3>
+<form>
+<div>Select bottom node:</div>
+  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="bottomNodeId"></select>
+
+  <div>Select up node:</div>
+  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="upNodeId"
+    ></select>
+  <br>
+  <button ng-click="bottomUpF()">Get configuration!</button>
+</form>
+<div ng-if="configuration.bottomUp">
+  Bottom-Up Configuration:
+  <div ng-repeat="conf in configuration.bottomUp">
+    <div>{{conf.id}}, {{conf.json}}, {{conf.parentId}}</div>
+  </div>
 </div>

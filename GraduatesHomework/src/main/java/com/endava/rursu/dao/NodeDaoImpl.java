@@ -178,4 +178,10 @@ public class NodeDaoImpl implements NodeDao {
         }
         return nodes;
     }
+
+    @Override
+    public List<Node> getAllNodes() {
+        List<Node> nodes = sessionFactory.getCurrentSession().createCriteria(Node.class).list();
+        return nodes;
+    }
 }

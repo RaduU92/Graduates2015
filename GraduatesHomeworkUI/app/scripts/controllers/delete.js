@@ -4,12 +4,20 @@
 'use strict';
 
 angular.module('graduatesHomeworkUiApp')
-  .controller('DeleteCtrl', function delNode($scope, DeleteService) {
-    var nodeId = 14;
-    var nodeInfo = {
-      id: nodeId
+  .controller('DeleteCtrl', function delNode($scope, DeleteService, AllNodesService) {
+    $scope.deleteTheNode = function () {
+      var nodeInfo = {
+        id: $scope.nodeId
+      };
+      DeleteService.deleteNode(nodeInfo).then(function (response) {
+        $scope.message = response.data;
+      }, function (response) {
+        $scope.message = response.data;
+      });
     };
-    DeleteService.deleteNode(nodeInfo, function (data) {
-      $scope.message = data;
+    AllNodesService.getAll().then(function (response) {
+      $scope.nodes = response.data;
+    }, function (response) {
+      $scope.nodes = response.data;
     });
   });

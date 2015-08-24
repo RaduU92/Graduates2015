@@ -4,9 +4,17 @@
 'use strict';
 
 angular.module('graduatesHomeworkUiApp')
-  .controller('ParentCtrl', function getParent($scope, ParentService) {
-    var nodeId = 2;
-    ParentService.nodeParent(nodeId, function (data) {
-      $scope.parent = data;
+  .controller('ParentCtrl', function getParent($scope, ParentService, AllNodesService) {
+    $scope.getParent = function () {
+      ParentService.nodeParent($scope.id).then(function (response) {
+        $scope.parent = response.data;
+      }, function (response) {
+        $scope.parent = response.data;
+      });
+    };
+    AllNodesService.getAll().then(function (response) {
+      $scope.nodes = response.data;
+    }, function (response) {
+      $scope.nodes = response.data;
     });
   });

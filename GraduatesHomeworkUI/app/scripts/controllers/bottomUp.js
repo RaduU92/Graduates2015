@@ -4,10 +4,17 @@
 'use strict';
 
 angular.module('graduatesHomeworkUiApp')
-  .controller('BottomUpCtrl', function bottomUpConfig($scope, BottomUpService) {
-    var bottomNodeId = 7;
-    var upNodeId = 1;
-    BottomUpService.bottomUpConfig(bottomNodeId, upNodeId, function (data) {
-      $scope.configuration = data;
+  .controller('BottomUpCtrl', function bottomUpConfig($scope, BottomUpService, AllNodesService) {
+    $scope.bottomUpF = function () {
+      BottomUpService.bottomUpConfig($scope.bottomNodeId, $scope.upNodeId).then(function (response) {
+        $scope.configuration = response.data;
+      }, function (response) {
+        $scope.configuration = response.data;
+      });
+    };
+    AllNodesService.getAll().then(function (response) {
+      $scope.nodes = response.data;
+    }, function (response) {
+      $scope.nodes = response.data;
     });
   });

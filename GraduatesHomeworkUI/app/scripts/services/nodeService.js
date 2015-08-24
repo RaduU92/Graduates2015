@@ -6,8 +6,8 @@
 angular.module('graduatesHomeworkUiApp')
   .factory('NodeService', function ($http) {
     return {
-      myNode: function (id, callback) {
-        $http.get('http://localhost:8081/select/' + id).success(callback);
+      myNode: function (id) {
+        return $http.get('http://localhost:8081/select/' + id);
       }
     }
   });

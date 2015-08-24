@@ -8,10 +8,10 @@
  * Controller of the graduatesHomeworkUiApp
  */
 angular.module('graduatesHomeworkUiApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function ($scope, AllNodesService) {
+    AllNodesService.getAll().then(function (response) {
+      $scope.nodes = response.data;
+    }, function (response) {
+      $scope.nodes = response.data;
+    });
   });

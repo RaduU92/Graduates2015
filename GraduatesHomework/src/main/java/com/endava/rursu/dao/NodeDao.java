@@ -27,4 +27,6 @@ public interface NodeDao {
     List<Node> fetchTopDownConfiguration(int topNodeId, int downNodeId);
 
     List<Node> fetchBottomUpConfiguration(int bottomNodeId, int upNodeId);
+
+    List<Node> getAllNodes();
 }
