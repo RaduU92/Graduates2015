@@ -282,4 +282,72 @@ public class NodeController {
             return new ResponseEntity<String>(response, HttpStatus.NOT_FOUND);
         }
     }
+
+    // Functia de creare a arborelui
+    public Node createTree(Node node) {
+        List<Node> nodes = nodeService.getChildrensOfNode(node.getId());
+        node.setChildrens(nodes);
+        for (Node n : nodes) {
+            n = createTree(n);
+        }
+        return node;
+    }
+
+    // Functie folosita pentru verificarea crearii arborelui
+    public void displayNodesWithChildrens(Node node) {
+        if (node != null) {
+            System.out.print(node.getId() + " :");
+            for (Node x : node.getChildrens()) {
+                System.out.print(" " + x.getId());
+            }
+            System.out.println("\n");
+            if (node.getChildrens() != null) {
+                for (Node nod : node.getChildrens()) {
+                    displayNodesWithChildrens(nod);
+                }
+            }
+        } else {
+            System.out.println("Nothing to display!");
+        }
+    }
+
+    // Creare JSON corespunzator tree-ului
+    public String createTreeJson(Node node, String json) {
+        if (node != null) {
+            if ((json.length() > 2) && (json.charAt(json.length() - 1) == '}')) {
+                json += ",";
+            }
+            json += "{\"json\":" + node.getJson() + ",\"id\":" + node.getId() + ",\"parentId\":";
+            if (node.getParent() != null) {
+                json += node.getParent().getId();
+            } else {
+                json += null;
+            }
+            json += ",\"childrens\":[";
+            if (node.getChildrens() != null) {
+                for (Node nod : node.getChildrens()) {
+                    json = createTreeJson(nod, json);
+                }
+            }
+            json += "]}";
+        } else {
+            json = "[]";
+        }
+        return json;
+    }
+
+    @RequestMapping(value = "/tree", method = RequestMethod.GET, produces = APPLICATION_JSON)
+    @ResponseBody
+    public ResponseEntity<String> getTree() {
+        Node root = nodeService.getRoot();
+        if (root != null) {
+            Node n = createTree(root);
+            String json = "[";
+            json += createTreeJson(n, new String());
+            json += "]";
+            return new ResponseEntity<String>(json, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("[]", HttpStatus.NOT_FOUND);
+        }
+    }
 }
