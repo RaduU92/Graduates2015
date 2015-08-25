@@ -1,8 +1,11 @@
-<h3>Remove a node</h3>
-<form>
-  Select the note you want to delete:
-  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="nodeId"
-          ng-change="getParent()"></select><br>
-  <button ng-click="deleteTheNode()">Delete node</button>
-</form>
-<p>{{message.message}}</p>
+<div class="viewPageContainer">
+  <h3><b>Remove a node</b></h3>
+
+  <form>
+    Select the note you want to delete:
+    <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="nodeId"
+            ng-change="getParent()"></select><br>
+    <button class="myBtn" ng-click="deleteTheNode()">Delete node</button>
+  </form>
+  <div class="resultText">{{message.message}}</div>
+</div>

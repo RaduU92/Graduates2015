@@ -1,11 +1,13 @@
-<h3>Update a node</h3>
+<div class="viewPageContainer">
+<h3><b>Update a node</b></h3>
 
 <form>
   Node ID: <select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
                    ng-model="nodeId"></select><br>
   Key: <input type="text" name="contentInput" ng-model="key"><br>
   Value: <input type="text" name="contentInput" ng-model="info" value="node"><br>
-  <button ng-click="updateNode()">Update node</button>
+  <button class="myBtn" ng-click="updateNode()">Update node</button>
 </form>
 
-<p>{{message.message}}</p>
+<div class="resultText">{{message.message}}</div>
+</div>

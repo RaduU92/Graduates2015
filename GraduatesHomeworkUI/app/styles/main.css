@@ -7,6 +7,8 @@
 
 body {
   padding: 0;
+  background-color: #DDDDDD;
+  color: #003366;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -21,19 +23,23 @@ body {
 .header {
   border-bottom: 1px solid #e5e5e5;
   margin-bottom: 10px;
+
 }
+
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
   margin-top: 0;
   margin-bottom: 0;
   line-height: 40px;
   padding-bottom: 19px;
+  background-color: #333;
 }
 
 /* Custom page footer */
 .footer {
   padding-top: 19px;
-  color: #777;
+  color: #36aeff;
+  background-color: #333;
   border-top: 1px solid #e5e5e5;
 }
 
@@ -46,6 +52,7 @@ body {
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
 }
+
 .jumbotron .btn {
   font-size: 21px;
   padding: 14px 24px;
@@ -55,6 +62,7 @@ body {
 .marketing {
   margin: 40px 0;
 }
+
 .marketing p + h4 {
   margin-top: 28px;
 }
@@ -72,12 +80,125 @@ body {
     padding-left: 0;
     padding-right: 0;
   }
+
   /* Space out the masthead */
   .header {
     margin-bottom: 30px;
+
   }
+
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+.myHeaderClass {
+  background-color: #333;
+  color: #36aeff;
+}
+
+.myHeaderClass a {
+  color: #36aeff;
+  text-decoration: none;
+}
+
+.myHeaderClass a:hover {
+  color: #EEEEEE;
+  text-decoration: none;
+}
+
+.navigationBar {
+  float: left;
+  list-style: none;
+}
+
+.navigationBarA {
+  float: left;
+  margin: 0;
+  padding: 5px 10px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.treeView {
+  /*float: left;*/
+  /*border: 1px solid #CCCCCC;*/
+  border-radius: 6px;
+  /*margin-right: 10px;*/
+  margin-bottom: 20px;
+  padding: 0px 15px 5px 15px;
+  background-color: #E8E8E8;
+  color: inherit;
+}
+
+.contentView {
+  /*margin-left: 10px;*/
+}
+
+.viewPageContainer {
+  border-radius: 6px;
+  background-color: #E8E8E8;
+  margin-bottom: 30px;
+  padding: 1px 15px 10px 15px;
+}
+
+.myBtn {
+  padding: 5px 7px 5px 7px;
+  background-color: #0099FF;
+  /*background-color: #36aeff;*/
+  /*border-radius: 5px;*/
+  border: 1px solid #EEEEEE;
+  font-size: 15px;
+  color: #FFFFFF;
+}
+
+.myBtn:hover {
+  background-color: #2288FF;
+  color: #FFFFFF;
+}
+
+.nodeInfo {
+  /*padding-left: 10px;*/
+  background-color: #EEEEFF;
+  padding: 10px 10px;
+  border: 1px solid #CCCCCC;
+  font-weight: 700;
+  color: #005588;
+}
+
+.childInfo {
+  /*padding-left: 10px;*/
+  background-color: #EEEEFF;
+  padding: 10px 10px;
+  border: 1px solid #CCCCCC;
+  font-weight: 700;
+  color: #005588;
+  margin-left: 30px;
+}
+
+.titleText {
+  font-weight: 700;
+  font-size: 18px;
+  padding: 10px 5px;
+  color: #003366;
+}
+
+.resultText {
+  font-weight: 700;
+  font-size: 15px;
+  padding: 10px 5px;
+  color: #003366;
+}
+
+.treeList {
+  list-style: none;
+}
+
+.mainLink {
+  float: left;
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 25px;
+  line-height: 20px;
 }

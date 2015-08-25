@@ -1,9 +1,12 @@
-<h3>Parent</h3>
-<div>Select a node to see its parent:</div>
-<select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="id"
-        ng-change="getParent()"></select>
+<div class="viewPageContainer">
+  <h3><b>Parent</b></h3>
 
-<div ng-if="parent.id">
-  <div>The parent of node with id {{parent.id}} is:</div>
-  <p>{{parent.id}}, {{parent.json}}, {{parent.parentId}}</p>
+  <div>Select a node to see its parent:</div>
+  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="id"
+          ng-change="getParent()"></select>
+
+  <div ng-if="parent.id">
+    <div class="resultText">The parent of node with id {{id}} is:</div>
+    <div class="nodeInfo">{{parent.id}}, {{parent.json}}, {{parent.parentId}}</div>
+  </div>
 </div>

@@ -8,10 +8,10 @@
  * Controller of the graduatesHomeworkUiApp
  */
 angular.module('graduatesHomeworkUiApp')
-  .controller('MainCtrl', function ($scope, AllNodesService) {
-    AllNodesService.getAll().then(function (response) {
-      $scope.nodes = response.data;
+  .controller('MainCtrl', function ($scope, TreeConfigService) {
+    TreeConfigService.getTree().then(function (response) {
+      $scope.tree = response.data;
     }, function (response) {
-      $scope.nodes = response.data;
+      $scope.tree = response.data;
     });
   });

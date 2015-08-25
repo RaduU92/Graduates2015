@@ -1,13 +1,18 @@
-<h3>Children</h3>
-<div>Select a node to see its childrens:</div>
-<select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="id"
-        ng-change="getChilds()"></select>
+<div class="viewPageContainer">
+  <h3><b>Children</b></h3>
 
-<div ng-if="childs.parent.id">parent:
-  <div>{{childs.parent.id}}, {{childs.parent.json}}, {{childs.parent.parentId}}</div>
-  <div>childrens:
-    <div ng-repeat="child in childs.childrens">
-      <div>{{child.id}}, {{child.json}}, {{child.parentId}}</div>
+  <div>Select a node to see its childrens:</div>
+  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="id"
+          ng-change="getChilds()"></select>
+
+  <div ng-if="childs.parent.id">
+    <div class="resultText">Parent:</div>
+    <div class="nodeInfo">{{childs.parent.id}}, {{childs.parent.json}}, {{childs.parent.parentId}}</div>
+    <div>
+      <div class="resultText">Childrens:</div>
+      <div ng-repeat="child in childs.childrens">
+        <div class="childInfo">{{child.id}}, {{child.json}}, {{child.parentId}}</div>
+      </div>
     </div>
   </div>
 </div>

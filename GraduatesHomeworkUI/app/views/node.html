@@ -1,11 +1,14 @@
-<h3>Node Configuration</h3>
-<div>Select a node to see it's configuration:</div>
-<select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="id"
-        ng-change="read()"></select>
+<div class="viewPageContainer">
+  <h3><b>Node Configuration</b></h3>
 
-<div>
-  <div ng-if="nod.id">
-    Node configuration:
-    <p>{{nod.id}}, {{nod.json}}, {{nod.parentId}}</p>
+  <div>Select a node to see it's configuration:</div>
+  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="id"
+          ng-change="read()"></select>
+
+  <div>
+    <div ng-if="nod.id">
+      <div class="resultText">Node configuration:</div>
+      <div class="nodeInfo">{{nod.id}}, {{nod.json}}, {{nod.parentId}}</div>
+    </div>
   </div>
 </div>

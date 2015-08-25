@@ -1,17 +1,20 @@
-<h3>Top-Down Configuration</h3>
-<form>
-  <div>Select top node:</div>
-  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="topNodeId"></select>
+<div class="viewPageContainer">
+  <h3><b>Top-Down Configuration</b></h3>
 
-  <div>Select down node:</div>
-  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="downNodeId"
-    ></select>
-  <br>
-  <button ng-click="topDownF()">Get configuration!</button>
-</form>
-<div ng-if="configuration.topDown">
-  Top-Down Configuration:
-<div ng-repeat="conf in configuration.topDown">
-  <div>{{conf.id}}, {{conf.json}}, {{conf.parentId}}</div>
-</div>
+  <form>
+    <div>Select top node:</div>
+    <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="topNodeId"></select>
+
+    <div>Select down node:</div>
+    <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="downNodeId"
+      ></select>
+    <br>
+    <button class="myBtn" ng-click="topDownF()">Get configuration!</button>
+  </form>
+  <div ng-if="configuration.topDown">
+    <div class="resultText">Top-Down Configuration:</div>
+    <div ng-repeat="conf in configuration.topDown">
+      <div class="nodeInfo">{{conf.id}}, {{conf.json}}, {{conf.parentId}}</div>
+    </div>
+  </div>
 </div>
