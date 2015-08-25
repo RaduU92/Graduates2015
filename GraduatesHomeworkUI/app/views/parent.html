@@ -1,12 +1,18 @@
 <div class="viewPageContainer">
   <h3><b>Parent</b></h3>
 
-  <div>Select a node to see its parent:</div>
-  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="id"
-          ng-change="getParent()"></select>
+  <form name="selParent">
+    <div class="formText">Select a node to see its parent:</div>
+    <div class="formElement"><select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
+                                     ng-model="id"
+                                     ng-change="getParent()" class="inputStyle" required></select></div>
+  </form>
 
   <div ng-if="parent.id">
     <div class="resultText">The parent of node with id {{id}} is:</div>
     <div class="nodeInfo">{{parent.id}}, {{parent.json}}, {{parent.parentId}}</div>
+  </div>
+  <div ng-if="!parent.id&&selParent.$valid">
+    <div class="resultText">The node with id {{id}} is the root and has no parent!</div>
   </div>
 </div>

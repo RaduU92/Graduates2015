@@ -1,15 +1,18 @@
 <div class="viewPageContainer">
   <h3><b>Update parent of node</b></h3>
 
-  <form>
-    <div>Select node:</div>
-    <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="nodeId"></select>
+  <form name="updateParentForm">
+    <div class="formText">Select node:</div>
+    <div class="formElement"><select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
+                                     ng-model="nodeId" class="inputStyle" required></select></div>
 
-    <div>Select new parent node:</div>
-    <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="parentNodeId"
-      ></select>
-    <br>
-    <button class="myBtn" ng-click="modifyParent()">Update parent</button>
+    <div class="formText">Select new parent node:</div>
+    <div class="formElement"><select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
+                                     ng-model="parentNodeId" class="inputStyle" required
+      ></select></div>
+    <div class="formButtonContainer">
+      <button class="myBtn" ng-click="modifyParent()" ng-disabled="updateParentForm.$invalid">Update parent</button>
+    </div>
   </form>
 
   <div class="resultText">{{message.message}}</div>

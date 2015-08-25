@@ -1,15 +1,18 @@
 <div class="viewPageContainer">
   <h3><b>Top-Down Configuration</b></h3>
 
-  <form>
-    <div>Select top node:</div>
-    <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="topNodeId"></select>
-
-    <div>Select down node:</div>
-    <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="downNodeId"
-      ></select>
-    <br>
-    <button class="myBtn" ng-click="topDownF()">Get configuration!</button>
+  <form name="topDownForm">
+    <div class="formText">Select top node:</div>
+    <div class="formElement"><select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
+                                     ng-model="topNodeId" class="inputStyle"
+                                     required></select></div>
+    <div class="formText">Select down node:</div>
+    <div class="formElement"><select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
+                                     ng-model="downNodeId" class="inputStyle" required
+      ></select></div>
+    <div class="formButtonContainer">
+      <button class="myBtn" ng-click="topDownF()" ng-disabled="topDownForm.$invalid">Get configuration!</button>
+    </div>
   </form>
   <div ng-if="configuration.topDown">
     <div class="resultText">Top-Down Configuration:</div>

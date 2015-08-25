@@ -1,9 +1,10 @@
 <div class="viewPageContainer">
   <h3><b>Node Configuration</b></h3>
 
-  <div>Select a node to see it's configuration:</div>
-  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="id"
-          ng-change="read()"></select>
+  <div class="formText">Select a node to see its configuration:</div>
+  <div class="formElement"><select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
+                                   ng-model="id"
+                                   ng-change="read()" class="inputStyle"></select></div>
 
   <div>
     <div ng-if="nod.id">

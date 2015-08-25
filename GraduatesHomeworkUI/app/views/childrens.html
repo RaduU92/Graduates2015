@@ -1,11 +1,14 @@
 <div class="viewPageContainer">
   <h3><b>Children</b></h3>
 
-  <div>Select a node to see its childrens:</div>
-  <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="id"
-          ng-change="getChilds()"></select>
-
-  <div ng-if="childs.parent.id">
+  <form name="selChilds">
+    <div class="formText">Select a node to see its childrens:</div>
+    <div class="formElement"><select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
+                                     ng-model="id"
+                                     ng-change="getChilds()" class="inputStyle" required></select></div>
+  </form>
+  <!--<div ng-if="childs.childrens">-->
+  <div ng-hide="!childs.childrens.length||selChilds.$invalid">
     <div class="resultText">Parent:</div>
     <div class="nodeInfo">{{childs.parent.id}}, {{childs.parent.json}}, {{childs.parent.parentId}}</div>
     <div>
@@ -15,4 +18,9 @@
       </div>
     </div>
   </div>
+  <div ng-hide="childs.childrens.length||selChilds.$invalid">
+    <div class="resultText">The node with id {{childs.parent.id}} is a leaf and has no children.</div>
+  </div>
+
+
 </div>

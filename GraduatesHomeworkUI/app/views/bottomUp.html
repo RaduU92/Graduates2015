@@ -1,15 +1,19 @@
 <div class="viewPageContainer">
   <h3><b>Bottom-Up Configuration</b></h3>
 
-  <form>
-    <div>Select bottom node:</div>
-    <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="bottomNodeId"></select>
+  <form name="bottomUpForm">
+    <div class="formText">Select bottom node:</div>
+    <div class="formElement"><select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
+                                     ng-model="bottomNodeId" class="inputStyle"
+                                     required></select></div>
 
-    <div>Select up node:</div>
-    <select ng-options="node.id as node.id for node in nodes.nodes track by node.id" ng-model="upNodeId"
-      ></select>
-    <br>
-    <button class="myBtn" ng-click="bottomUpF()">Get configuration!</button>
+    <div class="formText">Select up node:</div>
+    <div class="formElement"><select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
+                                     ng-model="upNodeId" class="inputStyle" required
+      ></select></div>
+    <div class="formButtonContainer">
+      <button class="myBtn" ng-click="bottomUpF()" ng-disabled="bottomUpForm.$invalid">Get configuration!</button>
+    </div>
   </form>
   <div ng-if="configuration.bottomUp">
     <div class="resultText">Bottom-Up Configuration:</div>

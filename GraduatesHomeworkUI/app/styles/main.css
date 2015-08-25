@@ -158,9 +158,15 @@ body {
   color: #FFFFFF;
 }
 
+.myBtn:disabled {
+  background-color: #CCCCCC;
+  color: #000000;
+}
+
 .nodeInfo {
   /*padding-left: 10px;*/
-  background-color: #EEEEFF;
+  /*background-color: #EEEEFF;*/
+  background-color: #F0F8FF;
   padding: 10px 10px;
   border: 1px solid #CCCCCC;
   font-weight: 700;
@@ -169,7 +175,8 @@ body {
 
 .childInfo {
   /*padding-left: 10px;*/
-  background-color: #EEEEFF;
+  background-color: #F0F8FF;
+  /*background-color: #EEEEFF;*/
   padding: 10px 10px;
   border: 1px solid #CCCCCC;
   font-weight: 700;
@@ -201,4 +208,21 @@ body {
   padding: 15px 15px;
   font-size: 25px;
   line-height: 20px;
+}
+
+.formText {
+  font-weight: 700;
+}
+
+.formButtonContainer {
+  margin-top: 10px;
+}
+
+.formElement {
+  margin-bottom: 10px;
+  color: #005588;
+}
+
+.inputStyle {
+  padding: 2px 5px;
 }

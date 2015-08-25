@@ -1,12 +1,19 @@
 <div class="viewPageContainer">
   <h3><b>Add new node</b></h3>
 
-  <form>
-    Key: <input type="text" name="contentInput" ng-model="key"><br>
-    Value: <input type="text" name="contentInput" ng-model="info"><br>
-    Parent node ID: <select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
-                            ng-model="parentId"></select><br>
-    <button class="myBtn" ng-click="addNewNode()">Add node</button>
+  <form name="insertForm">
+    <div class="formText">Key:</div>
+    <div class="formElement"><input type="text" name="contentInput" class="inputStyle" ng-model="key" required=""></div>
+
+    <div class="formText">Value:</div>
+    <div class="formElement"><input type="text" name="contentInput" class="inputStyle" ng-model="info" required=""></div>
+
+    <div class="formText">Parent node ID:</div>
+    <div class="formElement"><select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
+                                     ng-model="parentId" class="inputStyle" required></select></div>
+    <div class="formButtonContainer">
+      <button class="myBtn" ng-click="addNewNode()" ng-disabled="insertForm.$invalid">Add node</button>
+    </div>
   </form>
   <div class="resultText">{{message.message}}</div>
 </div>

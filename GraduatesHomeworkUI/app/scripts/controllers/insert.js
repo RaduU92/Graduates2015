@@ -22,12 +22,17 @@ angular.module('graduatesHomeworkUiApp')
       nodeInfo[key1] = json;
       var key2 = "parentId";
       nodeInfo[key2] = $scope.parentId;
-      
+
       InsertService.newNode(nodeInfo).then(function (response) {
         $scope.message = response.data;
       }, function (response) {
         $scope.message = response.data;
       });
+
+      $scope.key = '';
+      $scope.info = '';
+      $scope.parentId = '';
+      window.location.reload();
     };
     AllNodesService.getAll().then(function (response) {
       $scope.nodes = response.data;

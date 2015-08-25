@@ -14,6 +14,9 @@ angular.module('graduatesHomeworkUiApp')
       }, function (response) {
         $scope.message = response.data;
       });
+
+      $scope.nodeId = '';
+      window.location.reload();
     };
     AllNodesService.getAll().then(function (response) {
       $scope.nodes = response.data;
