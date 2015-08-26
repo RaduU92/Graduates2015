@@ -6,11 +6,13 @@
     <div class="formElement"><input type="text" name="contentInput" class="inputStyle" ng-model="key" required=""></div>
 
     <div class="formText">Value:</div>
-    <div class="formElement"><input type="text" name="contentInput" class="inputStyle" ng-model="info" required=""></div>
+    <div class="formElement"><input type="text" name="contentInput" class="inputStyle" ng-model="info" required="">
+    </div>
 
     <div class="formText">Parent node ID:</div>
     <div class="formElement"><select ng-options="node.id as node.id for node in nodes.nodes track by node.id"
-                                     ng-model="parentId" class="inputStyle" required></select></div>
+                                     ng-model="parentId" class="inputStyle" ng-required="nodes.nodes.length"></select>
+    </div>
     <div class="formButtonContainer">
       <button class="myBtn" ng-click="addNewNode()" ng-disabled="insertForm.$invalid">Add node</button>
     </div>
